@@ -9,10 +9,16 @@ h1, form, li{
     justify-content: space-around;
 }
 
+li{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
 
 .petTile {
-    width: 150px;
-    height:200px;
+    width: 175px;
+    height:250px;
     object-fit: cover;
 }
 

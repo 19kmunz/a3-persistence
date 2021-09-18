@@ -2,7 +2,12 @@
 const refreshGalleryContents = function(json) {
   let galleryContents = '';
   for(let i = 0; i < json.length; i++){
-    galleryContents += '<li> <figure> <img class="petTile" src="'+json[i].link+'" alt="Cute picture of '+json[i].name+'"> <figcaption>'+json[i].name+' says '+json[i].call+'</figcaption> </figure> <button id="'+json[i].id+'" onclick="deleteEntry(this.id)" class="delete">Delete</button> </li>';
+    galleryContents += '<li> <figure> <img class="petTile" src="'
+      +json[i].link+'" alt="Cute picture of '
+      +json[i].name+'"> <figcaption>'
+      +json[i].name+' says '
+      +json[i].call+'</figcaption> </figure> <button id="'
+      +json[i].id+'" onclick="deleteEntry(this.id)" class="delete">Delete</button> </li>';
   }
   const gallery = document.querySelector( '#gallery' )
   gallery.innerHTML = galleryContents;

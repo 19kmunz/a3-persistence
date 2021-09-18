@@ -23,7 +23,7 @@
       <button id="createPet">Post That Pet!</button>
     </form>
     <ul id="gallery">
-      <li>
+      <li id="1">
         <figure>
           <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg" alt="Cute picture of Pippi">
           <figcaption>Pippi says WOOF</figcaption>
@@ -33,10 +33,36 @@
       </li>
       <li>
         <figure>
-          <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg" alt="Cute picture of Mordecai">
-          <figcaption>Mordecai says MEOW</figcaption>
+          <form action="">
+            <label>Pet Name: <input name="name" value="Moredcai"></label>
+            <label>Image Link: <input name="link" value="link"></label>
+            <label>Pet Type:
+              <select name="type" value="Cat">
+                <option>Dog</option>
+                <option>Cat</option>
+                <option>Snake</option>
+                <option>Bird</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </form>
         </figure>
-        <button id="2" onclick="deleteEntry(this.id)" class="delete">Delete</button>
+        <button>Edit That Pet!</button>
+        <button>Cancel</button>
+      </li>
+      <li>
+        <figure>
+          <img class="petTile" src="https://i.imgur.com/Db4cRax.png" alt="Cute picture of Bubba">
+          <figcaption>Bubba says HI</figcaption>
+        </figure>
+        <button id="3" onclick="deleteEntry(this.id)" class="delete">Delete</button>
+      </li>
+      <li>
+        <figure>
+          <img class="petTile" src="https://i.imgur.com/Db4cRax.png" alt="Cute picture of Bubba">
+          <figcaption>Bubba says HI</figcaption>
+        </figure>
+        <button id="3" onclick="deleteEntry(this.id)" class="delete">Delete</button>
       </li>
       <li>
         <figure>
