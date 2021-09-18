@@ -1,9 +1,4 @@
 /*Style your own assignment! This is fun! */
-body {
-  margin:auto;
-  max-width: 50em;
-}
-
 h1, form, li{
     text-align: center;
 }
