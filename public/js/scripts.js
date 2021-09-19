@@ -102,6 +102,7 @@ const confirmEdits = function(clickedId) {
   return false
   
 }
+
 window.onload = function() {
   const button = document.querySelector( '#createPet' )
   button.onclick = submit
