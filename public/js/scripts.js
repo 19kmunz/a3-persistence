@@ -20,7 +20,10 @@ const deleteEntry = function (clickedId) {
   console.log(body)
   fetch( '/delete', {
     method:'POST',
-    body
+    body,
+    headers:{
+      "Content-Type": "application/json"
+    }
   })
   .then( function( response ) {
     return response.json();
@@ -41,7 +44,10 @@ const submit = function( e ) {
 
   fetch( '/submit', {
     method:'POST',
-    body 
+    body,
+    headers:{
+      "Content-Type": "application/json"
+    }
   })
   .then( function( response ) {
     return response.json();
