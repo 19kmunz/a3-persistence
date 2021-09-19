@@ -2,12 +2,14 @@
 const refreshGalleryContents = function(json) {
   let galleryContents = '';
   for(let i = 0; i < json.length; i++){
-    galleryContents += '<li> <figure> <img class="petTile" src="'
+    galleryContents += '<li id="'
+      +json[i].id+'"> <figure> <img class="petTile" src="'
       +json[i].link+'" alt="Cute picture of '
       +json[i].name+'"> <figcaption>'
       +json[i].name+' says '
-      +json[i].call+'</figcaption> </figure> <button id="'
-      +json[i].id+'" onclick="deleteEntry(this.id)" class="delete">Delete</button> </li>';
+      +json[i].call+'</figcaption> </figure> <button value="'
+      +json[i].id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
+      +json[i].id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
   }
   const gallery = document.querySelector( '#gallery' )
   gallery.innerHTML = galleryContents;
@@ -68,6 +70,32 @@ const submitNoFields = function( e ) {
   return false
 }
 
+const enterEditMode = function(clickedId) {
+  const liElement = document.querySelector( "id="+clickedId )
+  <form action="">
+          <label>Pet Name: <input name="name" value="Moredcai"></label>
+          <label>Image Link: <input name="link" value="link"></label>
+          <label>Pet Type:
+            <select name="type" value="Cat">
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Snake</option>
+              <option>Bird</option>
+              <option>Other</option>
+            </select>
+          </label>
+        </form>
+        <button value="2" onclick="confirmEdits(this.value)">Edit That Pet!</button>
+        <button value="2" onclick="exitEditMode(this.value)">Cancel</button>
+}
+const exitEditMode = function(clickedId) {
+  const liElement = document.querySelector( "id="+clickedId )
+  
+}
+const confirmEdits = function(clickedId) {
+  const liElement = document.querySelector( "id="+clickedId )
+  
+}
 window.onload = function() {
   const button = document.querySelector( '#createPet' )
   button.onclick = submit
