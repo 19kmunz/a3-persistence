@@ -78,15 +78,10 @@ const enterEditMode = function(clickedId) {
   liElement.innerHTML = '<form action=""> <label>Pet Name: <input name="editName" value="'
     +name+'"></label> <label>Image Link: <input name="editLink" value="'
     +link+'"></label><label>Pet Type:<select name="editType" value="Cat"><option>Dog</option><option>Cat</option><option>Snake</option><option>Bird</option><option>Other</option></select></label></form><button value="'
-    +clickedId+'" onclick="confirmEdits(this.value)">Edit That Pet!</button><button value="'
-    +clickedId+'" onclick="exitEditMode(this.value)">Cancel</button>'
-}
-const exitEditMode = function(clickedId) {
-  const liElement = document.querySelector( "id="+clickedId )
-  //  TODO
+    +clickedId+'" onclick="confirmEdits(this.value)">Edit That Pet!</button>'
 }
 const confirmEdits = function(clickedId) {
-  const liElement = document.querySelector( "id="+clickedId )
+  const liElement = document.querySelector( 'li[id="'+clickedId+'"]' )
   const name = liElement.querySelector( 'input[name="editName"]' ),
           link = liElement.querySelector( 'input[name="editLink"]' ),
           type = liElement.querySelector( 'select[name="editType"]' ),
@@ -110,7 +105,7 @@ const confirmEdits = function(clickedId) {
 window.onload = function() {
   const button = document.querySelector( '#createPet' )
   button.onclick = submit
-  //submitNoFields()
+  submitNoFields()
 }
 
 /*
