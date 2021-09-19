@@ -17,6 +17,7 @@ const refreshGalleryContents = function(json) {
 }
 const deleteEntry = function (clickedId) {
   let body = JSON.stringify({"id": clickedId});
+  console.log(body)
   fetch( '/delete', {
     method:'POST',
     body
