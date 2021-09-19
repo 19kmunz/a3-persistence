@@ -1,10 +1,5 @@
-const http = require( 'http' ),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
-      dir  = 'public/',
-      port = 3000
+const express = require("express")
+const app = express();
 
 const appdata = [
   { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'cat' },
@@ -13,6 +8,8 @@ const appdata = [
 ];
 
 let currId=4;
+
+app.use(express.static("public"))
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -32,18 +29,7 @@ const handleGet = function( request, response ) {
   }
 }
 
-const handlePost = function( request, response ) {
-  let dataString = ''
-
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
-
-  request.on( 'end', function() {
-    if(request.url === '/submit') {
-      let obj = JSON.parse(dataString);
-      console.log(obj)
-
+app.post("/submit", bodyParser.json() , ( request, response ) => {
       if (obj.name !== '' && obj.link !== '' && obj.type !== '') {
         let flip = Math.random();
         let call;
@@ -86,7 +72,9 @@ const handlePost = function( request, response ) {
         response.writeHead(200, "Request Had No Valid Content to Add, sending Current Unchanged State.", {'Content-Type': 'text/plain'})
         response.end(JSON.stringify(appdata))
       }
-    } else if (request.url === '/delete') {
+})
+
+app.post("/submit", bodyParser.json() , ( request, response ) => {
       let idObj = JSON.parse(dataString);
       if(idObj.id < 0 || idObj.id > currId){
         response.writeHead(400, "Bad Id For Deletion", {'Content-Type': 'text/plain'})
@@ -106,9 +94,7 @@ const handlePost = function( request, response ) {
           response.end(JSON.stringify(appdata))
         }
       }
-    }
-  })
-}
+    })
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
@@ -132,4 +118,6 @@ const sendFile = function( response, filename ) {
    })
 }
 
-server.listen( process.env.PORT || port )
+const listener = app.listen(process.env.PORT, () => {
+  console.log("Your app is listening on port " + listener.address().port);
+});
