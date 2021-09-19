@@ -75,18 +75,36 @@ const enterEditMode = function(clickedId) {
   const liElement = document.querySelector( 'li[id="'+clickedId+'"]' )
   const name = liElement.querySelector("figcaption").getAttribute("name")
   const link = liElement.querySelector("img").getAttribute("src")
-  liElement.innerHTML = '<form action=""> <label>Pet Name: <input name="name" value="'
-    +name+'"></label> <label>Image Link: <input name="link" value="'
-    +link+'"></label><label>Pet Type:<select name="type" value="Cat"><option>Dog</option><option>Cat</option><option>Snake</option><option>Bird</option><option>Other</option></select></label></form><button value="'
+  liElement.innerHTML = '<form action=""> <label>Pet Name: <input name="editName" value="'
+    +name+'"></label> <label>Image Link: <input name="editLink" value="'
+    +link+'"></label><label>Pet Type:<select name="editType" value="Cat"><option>Dog</option><option>Cat</option><option>Snake</option><option>Bird</option><option>Other</option></select></label></form><button value="'
     +clickedId+'" onclick="confirmEdits(this.value)">Edit That Pet!</button><button value="'
     +clickedId+'" onclick="exitEditMode(this.value)">Cancel</button>'
 }
 const exitEditMode = function(clickedId) {
   const liElement = document.querySelector( "id="+clickedId )
-  
+  //  TODO
 }
 const confirmEdits = function(clickedId) {
   const liElement = document.querySelector( "id="+clickedId )
+  const name = liElement.querySelector( 'input[name="editName"]' ),
+          link = liElement.querySelector( 'input[name="editLink"]' ),
+          type = liElement.querySelector( 'select[name="editType"]' ),
+        json = { id: clickedId, name: name.value, link: link.value, type: type.value },
+        body = JSON.stringify( json )
+
+  fetch( '/submit', {
+    method:'POST',
+    body 
+  })
+  .then( function( response ) {
+    return response.json();
+  })
+  .then( function(json) {
+    refreshGalleryContents(json)
+  })
+
+  return false
   
 }
 window.onload = function() {

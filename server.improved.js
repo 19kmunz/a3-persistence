@@ -64,9 +64,20 @@ const handlePost = function( request, response ) {
             call = (flip > 0.5) ? "HEWWO" : "I LOVE YOU";
         }
         obj.call = call;
-        obj.id = currId;
-        currId++;
-        appdata.push(obj)
+        if(obj.hasOwnProperty("id")){
+          var index = appdata.findIndex(function(item){
+            return item.id == obj.id // using this on purpose cause obj stores id as string
+          });
+          console.log(index)
+          if(index < 0) {
+            response.writeHead(400, "Bad Id For Update", {'Content-Type': 'text/plain'})
+            response.end(JSON.stringify(appdata))
+          }
+        } else {
+          obj.id = currId;
+          currId++;
+          appdata.push(obj)
+        }
 
         response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
         response.end(JSON.stringify(appdata))
