@@ -55,12 +55,14 @@ const submit = function( e ) {
 
 const submitNoFields = function( e ) {
 
-  const json = { name: '', link: '', type: '' },
-          body = JSON.stringify( json )
+  const json = { name: '', link: '', type: '' }
 
   fetch( '/submit', {
     method:'POST',
-    body
+    body: JSON.stringify( json ),
+    headers:{
+      "Content-Type": "application/json"
+    }
   })
   .then( function( response ) {
     return response.json();

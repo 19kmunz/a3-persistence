@@ -17,6 +17,7 @@ app.get("/", (request, response) => {
 })
 
 app.post("/submit", bodyParser.json() , ( request, response ) => {
+  console.log(request.body)
   let obj = request.body
   if (obj.name !== '' && obj.link !== '' && obj.type !== '') {
     let flip = Math.random();
