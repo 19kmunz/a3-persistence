@@ -1,6 +1,22 @@
 const express = require("express")
 const bodyParser = require("body-parser")
+const mongodb = require( 'mongodb' )
 const app = express();
+
+const uri = 'mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net'
+
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let collection = null
+
+client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'a3' ).collection( 'pets' )
+  })
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection
+  })
 
 const appdata = [
   { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'dog' },
@@ -50,6 +66,8 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         appdata[index] = obj;
       }
     } else {
+      obj.user = {  "\$oid": "6148b6813e52f8cadd08544d" }
+      collection.insertOne(obj).then(console.log)
       obj.id = currId;
       currId++;
       appdata.push(obj)
