@@ -85,6 +85,17 @@ app.post("/delete", bodyParser.json() , ( request, response ) => {
   }
 })
 
+/*
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://19kmunz:<password>@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+*/
+
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
