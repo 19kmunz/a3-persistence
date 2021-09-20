@@ -4,6 +4,16 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const app = express();
 
+const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+let collection = null;
+
+client.connect(err => {
+  collection = client.db("a3").collection("pets");
+});
+
 const appdata = [
   { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'dog' },
   { 'id':2, 'name': 'Mordecai', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg', 'call': 'MEOW', 'type': 'cat' },
@@ -87,16 +97,6 @@ app.post("/delete", bodyParser.json() , ( request, response ) => {
   }
 })
 
-/*
-const { MongoClient } = require('mongodb');
-const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("a3").collection("pets");
-  // perform actions on the collection object
-  client.close();
-});
-*/
 
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
