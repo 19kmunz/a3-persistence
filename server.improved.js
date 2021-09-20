@@ -1,12 +1,11 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
 const app = express();
 
 const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/a3?retryWrites=true&w=majority`;
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let collection = null;
 
@@ -24,6 +23,13 @@ client.connect()
   })
   .then( console.log )
 
+app.use( (req,res,next) => {
+  if( collection !== null ) {
+    next()
+  }else{
+    res.status( 503 ).send()
+  }
+})
 
 const appdata = [
   { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'dog' },
