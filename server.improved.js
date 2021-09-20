@@ -1,35 +1,6 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-const mongodb = require('mongodb');
 const app = express();
-
-const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/a3?retryWrites=true&w=majority`;
-
-const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-let collection = null;
-
-client.connect()
-  .then( () => {
-    // will only create collection if it doesn't exist
-    return client.db( 'a3' ).collection( 'pets' )
-  })
-  .then( __collection => {
-    console.log("Connected")
-    // store reference to collection
-    collection = __collection
-    // blank query returns all documents
-    return collection.find({ }).toArray()
-  })
-  .then( console.log )
-
-app.use( (req,res,next) => {
-  if( collection !== null ) {
-    next()
-  }else{
-    res.status( 503 ).send()
-  }
-})
 
 const appdata = [
   { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'dog' },
@@ -79,11 +50,6 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         appdata[index] = obj;
       }
     } else {
-      collection.insertOne(obj).then(dbResponse => console.log(dbResponse))
-      collection.find({}).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
       obj.id = currId;
       currId++;
       appdata.push(obj)
@@ -119,6 +85,16 @@ app.post("/delete", bodyParser.json() , ( request, response ) => {
   }
 })
 
+/*
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://19kmunz:<password>@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+*/
 
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
