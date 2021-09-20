@@ -6,13 +6,13 @@ const app = express();
 
 const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/a3?retryWrites=true&w=majority`;
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
 let collection = null;
 
 client.connect(err => {
-  console.log("Connected!");
   collection = client.db("a3").collection("pets");
+  console.log("Connected!");
 });
 
 const appdata = [
@@ -63,7 +63,7 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         appdata[index] = obj;
       }
     } else {
-      collection.insertOne(obj)
+      collection.insertOne(obj).then(dbResponse => console.log(dbResponse))
       collection.find({}).toArray(function(err, result) {
         if (err) throw err;
         console.log(result);
