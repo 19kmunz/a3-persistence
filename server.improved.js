@@ -1,6 +1,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-const { MongoClient } = require('mongodb');
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 const app = express();
 
 const appdata = [
@@ -88,7 +89,7 @@ app.post("/delete", bodyParser.json() , ( request, response ) => {
 
 /*
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://19kmunz:<password>@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
