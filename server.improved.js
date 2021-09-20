@@ -4,13 +4,14 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const app = express();
 
-const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://19kmunz:${process.env.DBPASSWORD}@cluster0.xpfgv.mongodb.net/a3?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let collection = null;
 
 client.connect(err => {
+  console.log("Connected!");
   collection = client.db("a3").collection("pets");
 });
 
@@ -62,6 +63,11 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         appdata[index] = obj;
       }
     } else {
+      collection.insertOne(obj)
+      collection.find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+      });
       obj.id = currId;
       currId++;
       appdata.push(obj)
