@@ -3,14 +3,14 @@ const refreshGalleryContents = function(json) {
   let galleryContents = '';
   for(let i = 0; i < json.length; i++){
     galleryContents += '<li id="'
-      +json[i].id+'"> <figure> <img class="petTile" src="'
+      +json[i]._id+'"> <figure> <img class="petTile" src="'
       +json[i].link+'" alt="Cute picture of '
       +json[i].name+'"> <figcaption name="'
       +json[i].name+'">'
       +json[i].name+' says '
       +json[i].call+'</figcaption> </figure> <button value="'
-      +json[i].id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
-      +json[i].id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
+      +json[i]._id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
+      +json[i]._id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
   }
   const gallery = document.querySelector( '#gallery' )
   gallery.innerHTML = galleryContents;

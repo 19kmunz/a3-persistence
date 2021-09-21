@@ -56,18 +56,27 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
     }
     obj.call = call;
     if(obj.hasOwnProperty("id")){
-      console.log(obj.hasOwnProperty("id"))
-      var index = appdata.findIndex(function(item){
-        return item.id == obj.id // using this on purpose cause obj stores id as string
-      });
-      if(index < 0) {
-        response.writeHead(400, "Bad Id For Update", {'Content-Type': 'text/plain'})
-        response.end(JSON.stringify(appdata))
-      } else {
-        appdata[index] = obj;
-      }
-      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-      response.end(JSON.stringify(appdata))
+      if(obj.hasOwnProperty("_id")){
+      collection.updateOne( 
+        {"_id" : {"\$oid":obj.id} }, 
+        { $set: {
+            name: obj.name,
+            link: obj.link,
+            type: obj.type,
+            call: obj.call
+          }
+        })
+        .then(
+          collection.find({ }).toArray()
+            .then( result => response.json( result ) )
+            .then(function (json) {         
+              response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+              response.end(JSON.stringify(json))
+            })
+        ).catch(
+          response.writeHead(400, "Bad Id For Update", {'Content-Type': 'text/plain'})
+        )
+      
     } else {
       obj.user = {  "\$oid": "6148b6813e52f8cadd08544d" }
       collection.insertOne(obj)
