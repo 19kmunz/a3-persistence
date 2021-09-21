@@ -65,15 +65,21 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
       } else {
         appdata[index] = obj;
       }
+      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
     } else {
       obj.user = {  "\$oid": "6148b6813e52f8cadd08544d" }
-      collection.insertOne(obj).then(console.log)
-      obj.id = currId;
-      currId++;
-      appdata.push(obj)
+      collection.insertOne(obj)
+        .then(
+          collection.find({ }).toArray()
+            .then( result => response.json( result ) )
+            .then(function (json) {         
+            response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+            response.end(JSON.stringify(appdata))
+          })
+        )
     }
-    response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-    response.end(JSON.stringify(appdata))
+    
   } else {
     response.writeHead(200, "Request Had No Valid Content to Add, sending Current Unchanged State.", {'Content-Type': 'text/plain'})
     response.end(JSON.stringify(appdata))
