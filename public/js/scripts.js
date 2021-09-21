@@ -94,7 +94,7 @@ const confirmEdits = function(clickedId) {
   const name = liElement.querySelector( 'input[name="editName"]' ),
           link = liElement.querySelector( 'input[name="editLink"]' ),
           type = liElement.querySelector( 'select[name="editType"]' ),
-        json = { id: clickedId, name: name.value, link: link.value, type: type.value },
+        json = { _id: clickedId, name: name.value, link: link.value, type: type.value },
         body = JSON.stringify( json )
 
   fetch( '/submit', {

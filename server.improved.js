@@ -55,48 +55,31 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         call = (flip > 0.5) ? "HEWWO" : "I LOVE YOU";
     }
     obj.call = call;
-    if(obj.hasOwnProperty("id")){
-      if(obj.hasOwnProperty("_id")){
+    if(obj.hasOwnProperty("_id")){
+      console.log("update!")
       collection.updateOne( 
-        {"_id" : {"\$oid":obj.id} }, 
+        {"_id" : {"\$oid":obj._id} }, 
         { $set: {
             name: obj.name,
             link: obj.link,
             type: obj.type,
             call: obj.call
           }
-        })
-        .then(
+        }, function(err, ress) {
+          if (err) throw err;
           collection.find({ }).toArray()
             .then( result => response.json( result ) )
-            .then(function (json) {         
-              response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-              response.end(JSON.stringify(json))
-            })
-        ).catch(
-          response.writeHead(400, "Bad Id For Update", {'Content-Type': 'text/plain'})
-        )
+        })
       
     } else {
       obj.user = {  "\$oid": "6148b6813e52f8cadd08544d" }
-      collection.insertOne(obj)
-        .then(
-          collection.find({ }).toArray()
-            .then( result => response.json( result ) )
-            .then(function (json) {         
-              response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-              response.end(JSON.stringify(json))
-            })
-        )
+      collection.find({ }).toArray()
+        .then( result => response.json( result ) )
     }
     
   } else {
     collection.find({ }).toArray()
       .then( result => response.json( result ) )
-      .then(function (json) {         
-        response.writeHead(200, "Request Had No Valid Content to Add, sending Current Unchanged State.", {'Content-Type': 'text/plain'})
-        response.end(JSON.stringify(json))
-      })
   }
 })
 
