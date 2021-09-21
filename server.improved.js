@@ -56,6 +56,7 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
     }
     obj.call = call;
     if(obj.hasOwnProperty("id")){
+      console.log(obj.hasOwnProperty("id"))
       var index = appdata.findIndex(function(item){
         return item.id == obj.id // using this on purpose cause obj stores id as string
       });
@@ -74,15 +75,19 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
           collection.find({ }).toArray()
             .then( result => response.json( result ) )
             .then(function (json) {         
-            response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-            response.end(JSON.stringify(appdata))
-          })
+              response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+              response.end(JSON.stringify(json))
+            })
         )
     }
     
   } else {
-    response.writeHead(200, "Request Had No Valid Content to Add, sending Current Unchanged State.", {'Content-Type': 'text/plain'})
-    response.end(JSON.stringify(appdata))
+    collection.find({ }).toArray()
+      .then( result => response.json( result ) )
+      .then(function (json) {         
+        response.writeHead(200, "Request Had No Valid Content to Add, sending Current Unchanged State.", {'Content-Type': 'text/plain'})
+        response.end(JSON.stringify(json))
+      })
   }
 })
 
