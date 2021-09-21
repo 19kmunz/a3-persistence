@@ -19,13 +19,6 @@ client.connect()
     collection = __collection
   })
 
-const appdata = [
-  { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'dog' },
-  { 'id':2, 'name': 'Mordecai', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg', 'call': 'MEOW', 'type': 'cat' },
-  { 'id':3, 'name': 'Bubba', 'link': 'https://i.imgur.com/Db4cRax.png', 'call': 'I LOVE YOU', 'type':'other'}
-];
-
-let currId=4;
 
 app.use(express.static("public"))
 
@@ -73,8 +66,12 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
       
     } else {
       obj.user = ObjectId("6148b6813e52f8cadd08544d")
-      collection.find({ }).toArray()
-        .then( result => response.json( result ) )
+      collection.insertOne(obj, 
+         function(err, ress) {
+            if (err) throw err;
+            collection.find({ }).toArray()
+              .then( result => response.json( result ) )
+          })
     }
     
   } else {
@@ -86,36 +83,15 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
 app.post("/delete", bodyParser.json() , ( request, response ) => {
   console.log("Delete: " + request.body)
   let idObj = request.body
-  if(idObj.id < 0 || idObj.id > currId){
-    response.writeHead(400, "Bad Id For Deletion", {'Content-Type': 'text/plain'})
-    response.end(JSON.stringify(appdata))
-  } else {
-    console.log(idObj)
-    var index = appdata.findIndex(function(item){
-      return item.id == idObj.id // using this on purpose cause idObj stores id as string
-    });
-    console.log(index)
-    if(index < 0) {
-      response.writeHead(400, "Bad Id For Deletion", {'Content-Type': 'text/plain'})
-      response.end(JSON.stringify(appdata))
-    } else {
-      appdata.splice(index, 1)
-      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-      response.end(JSON.stringify(appdata))
-    }
-  }
+  console.log(idObj)
+  collection.deleteOne({ _id: ObjectId(idObj.id) }, 
+     function(err, ress) {
+        if (err) throw err;
+        collection.find({ }).toArray()
+          .then( result => response.json( result ) )
+      })
+  
 })
-
-/*
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://19kmunz:<password>@cluster0.xpfgv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-*/
 
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
