@@ -1,6 +1,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const mongodb = require( 'mongodb' )
+var ObjectId = require('mongodb').ObjectId
 const app = express();
 
 const uri = 'mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net'
@@ -56,9 +57,8 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
     }
     obj.call = call;
     if(obj.hasOwnProperty("_id")){
-      console.log("update!")
       collection.updateOne( 
-        {"_id" : {"\$oid":obj._id} }, 
+        {_id : ObjectId(obj._id) }, 
         { $set: {
             name: obj.name,
             link: obj.link,
@@ -72,7 +72,7 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         })
       
     } else {
-      obj.user = {  "\$oid": "6148b6813e52f8cadd08544d" }
+      obj.user = ObjectId("6148b6813e52f8cadd08544d")
       collection.find({ }).toArray()
         .then( result => response.json( result ) )
     }

@@ -99,7 +99,10 @@ const confirmEdits = function(clickedId) {
 
   fetch( '/submit', {
     method:'POST',
-    body 
+    body,
+    headers:{
+      "Content-Type": "application/json"
+    }
   })
   .then( function( response ) {
     return response.json();
