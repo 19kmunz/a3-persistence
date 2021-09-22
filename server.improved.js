@@ -35,10 +35,6 @@ app.use( cookie({
 }))
 
 app.post( '/login', (req,res)=> {
-  // express.urlencoded will put your key value pairs 
-  // into an object, where the key is the name of each
-  // form field and the value is whatever the user entered
-  console.log( req.body )
   
   // below is *just a simple authentication example* 
   // for A3, you should check username / password combos in your database
@@ -47,11 +43,7 @@ app.post( '/login', (req,res)=> {
     // the session object is added to our requests by the cookie-session middleware
     req.session.login = true
     
-    // since login was successful, send the user to the main content
-    // use redirect to avoid authentication problems when refreshing
-    // the page or using the back button, for details see:
-    // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-    res.redirect(  __dirname + '/views/main.html' )
+    res.redirect( '/' )
   }else{
     // password incorrect, redirect back to login page
     res.sendFile( __dirname + '/views/login.html' )
