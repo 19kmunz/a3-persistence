@@ -63,22 +63,21 @@ app.post( '/login', (req,res) => {
                   // setup new account
                   req.session.login = true
                   req.session.id = resss._id
+                  console.log(req.session)
                   collection.insertMany([
                     {
-                      user: ObjectId(resss._id),
+                      user: ObjectId(req.session.id),
                       name: "Pippi",
                       call: "ARF",
                       link:"https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg",
-                      type:"dog" ,
-                      user: resss._id
+                      type:"dog" 
                     },
                     {
-                      user: ObjectId(resss._id),
+                      user: ObjectId(req.session.id),
                       name: "Mordecai",
                       call: "MEOW",
                       link:"https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
-                      type:"cat" ,
-                      user: resss._id
+                      type:"cat" 
                     }
                   ], 
                    function(err, resss) {
@@ -99,6 +98,7 @@ app.post( '/login', (req,res) => {
                 } else {
                   req.session.login = true
                   req.session.id = resss._id
+                  console.log(req.session)
                   res.redirect( '/' )
                 }
               })
