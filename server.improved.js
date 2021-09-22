@@ -34,17 +34,34 @@ app.use( cookie({
   keys: ['4zFTJx2rVu3AkB', 'aMPnwJ9c4f4DZy']
 }))
 
-app.post( '/login', (req,res)=> async() => {
-  let usersDb = null
-  await client.connect()
+app.post( '/login', (req,res) => {
+ client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
     return client.db( 'a3' ).collection( 'users' )
   })
-  .then( __collection => {
+  .then( usersDb => {
     // store reference to collection
-    usersDb = __collection
+    usersDb.findOne({ username: req.body.username }, 
+       function(err, ress) {
+          if (err) throw err;
+          if(res === null) {
+            res.sendFile( __dirname + '/views/login.html' )
+          } else {
+            usersDb.findOne({ username: req.body.username, password: req.body.password }, 
+               function(err, ress) {
+                  if (err) throw err;
+                  if(res === null) {
+                    res.sendFile( __dirname + '/views/login.html' )
+                  } else {
+                        req.session.login = true
+                        res.redirect( '/' )
+                  }
+                })
+          }
+        })
   })
+  
   // below is *just a simple authentication example* 
   // for A3, you should check username / password combos in your database
   if( req.body.password === 'test' ) {
