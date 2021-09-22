@@ -47,8 +47,7 @@ app.use(function(req, res, next) {
   if (req.session.hasOwnProperty("id")) { 
     next();
   } else {
-    req.session.id = ObjectId("6148b6813e52f8cadd08544d");
-    res.sendFile(__dirname + "/views/main.html");
+    res.sendFile(__dirname + "/views/login.html");
   }
 });
 
@@ -147,10 +146,13 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
 
 // GET - get current db state of pet gallery
 app.get("/", (request, response) => {
-  if (request.hasOwnProperty("session")) {
-    getAllUserPets();
-  }
   response.sendFile(__dirname + "/views/main.html");
+});
+
+app.get("/get", (request, response) => {
+  if (request.hasOwnProperty("session")) {
+    getAllUserPets(request, response);
+  }
 });
 
 const getAllUserPets = function(request, response) {
@@ -198,6 +200,7 @@ const decideCall = function(type) {
     default:
       call = flip > 0.5 ? "HEWWO" : "I LOVE YOU";
   }
+  return call
 };
 
 const updatePet = function(request, response, obj) {

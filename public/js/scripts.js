@@ -1,9 +1,6 @@
 
 const getAllPets = function( e ) {
-
-  const json = { name: '', link: '', type: '' }
-
-  fetch( '/')
+  fetch('/get')
   .then( function( response ) {
     return response.json();
   })
