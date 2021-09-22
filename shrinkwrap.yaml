@@ -1,6 +1,7 @@
 dependencies:
   '@picocss/pico': 1.3.3
   body-parser: 1.19.0
+  cookie-session: 1.4.0
   express: 4.17.1
   mime: 2.5.2
   mongodb: 4.1.2
@@ -9,17 +10,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fV1e1VqZHYF4LgHu1JCoZmq8qkzo1f18f04+IIe7JvK4Bz4KmkiQXn4lQmxo2iZjYwCzH62OCW3H0g71Mu22/A==
-  /@types/node/16.9.4:
+  /@types/node/16.9.6:
     dev: false
     resolution:
-      integrity: sha512-KDazLNYAGIuJugdbULwFZULF9qQ13yNWEBFnfVpqlpgAAo6H/qnM9RjBgh0A0kmHf3XxAKLdN5mTIng9iUvVLA==
+      integrity: sha512-YHUZhBOMTM3mjFkXVcK+WwAcYmyhe1wL4lfqNtzI0b3qAy7yuSetnM7QJazgE5PFmgVTNGiLOgRFfJMqW7XpSQ==
   /@types/webidl-conversions/6.1.1:
     dev: false
     resolution:
       integrity: sha512-XAahCdThVuCFDQLT7R7Pk/vqeObFNL3YqRyFZg+AqAP/W1/w3xHaIxuW7WszQqTbIBOPRcItYJIou3i/mppu3Q==
   /@types/whatwg-url/8.2.1:
     dependencies:
-      '@types/node': 16.9.4
+      '@types/node': 16.9.6
       '@types/webidl-conversions': 6.1.1
     dev: false
     resolution:
@@ -93,6 +94,14 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
+  /cookie-session/1.4.0:
+    dependencies:
+      cookies: 0.8.0
+      debug: 2.6.9
+      on-headers: 1.0.2
+    dev: false
+    resolution:
+      integrity: sha512-0hhwD+BUIwMXQraiZP/J7VP2YFzqo6g4WqZlWHtEHQ22t0MeZZrNBSCxC1zcaLAs8ApT3BzAKizx9gW/AP9vNA==
   /cookie-signature/1.0.6:
     dev: false
     resolution:
@@ -103,6 +112,15 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /cookies/0.8.0:
+    dependencies:
+      depd: 2.0.0
+      keygrip: 1.1.0
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -121,6 +139,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
+  /depd/2.0.0:
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
   /destroy/1.0.4:
     dev: false
     resolution:
@@ -258,6 +282,14 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
+  /keygrip/1.1.0:
+    dependencies:
+      tsscmp: 1.0.6
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==
   /media-typer/0.3.0:
     dev: false
     engines:
@@ -307,18 +339,18 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==
-  /mongodb-connection-string-url/2.0.0:
+  /mongodb-connection-string-url/2.1.0:
     dependencies:
       '@types/whatwg-url': 8.2.1
       whatwg-url: 9.1.0
     dev: false
     resolution:
-      integrity: sha512-M0I1vyLoq5+HQTuPSJWbt+hIXsMCfE8sS1fS5mvP9R2DOMoi2ZD32yWqgBIITyu0dFu4qtS50erxKjvUeBiyog==
+      integrity: sha512-Qf9Zw7KGiRljWvMrrUFDdVqo46KIEiDuCzvEN97rh/PcKzk2bd6n9KuzEwBwW9xo5glwx69y1mI6s+jFUD/aIQ==
   /mongodb/4.1.2:
     dependencies:
       bson: 4.5.2
       denque: 2.0.1
-      mongodb-connection-string-url: 2.0.0
+      mongodb-connection-string-url: 2.1.0
     dev: false
     engines:
       node: '>=12.9.0'
@@ -348,6 +380,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=
+  /on-headers/1.0.2:
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
   /parseurl/1.3.3:
     dev: false
     engines:
@@ -475,6 +513,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-15Ih7phfcdP5YxqiB+iDtLoaTz4Nd35+IiAv0kQ5FNKHzXgdWqPoTIqEDDJmXceQt4JZk6lVPT8lnDlPpGDppw==
+  /tsscmp/1.0.6:
+    dev: false
+    engines:
+      node: '>=0.6.x'
+    resolution:
+      integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==
   /type-is/1.6.18:
     dependencies:
       media-typer: 0.3.0
@@ -523,6 +567,7 @@ shrinkwrapVersion: 3
 specifiers:
   '@picocss/pico': ^1.3.3
   body-parser: ^1.19.0
+  cookie-session: ^1.4.0
   express: ^4.17.1
   mime: ^2.5.2
   mongodb: ^4.1.2
