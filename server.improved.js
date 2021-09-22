@@ -45,35 +45,33 @@ app.post( '/login', (req,res) => {
     usersDb.findOne({ username: req.body.username }, 
        function(err, ress) {
           if (err) throw err;
-          if(res === null) {
-            res.sendFile( __dirname + '/views/login.html' )
+          if(ress === null) {
+            usersDb.insertOne({ username: req.body.username, password: req.body.password }, 
+             function(err, resss) {
+                console.log(resss)
+                if (err) throw err;
+                if(resss === null) {
+                  res.sendFile( __dirname + '/views/login.html' )
+                } else {
+                  req.session.login = true
+                  res.redirect( '/' )
+                }
+              })
           } else {
             usersDb.findOne({ username: req.body.username, password: req.body.password }, 
-               function(err, ress) {
-                  if (err) throw err;
-                  if(res === null) {
-                    res.sendFile( __dirname + '/views/login.html' )
-                  } else {
-                        req.session.login = true
-                        res.redirect( '/' )
-                  }
-                })
+             function(err, resss) {
+                console.log(resss)
+                if (err) throw err;
+                if(resss === null) {
+                  res.sendFile( __dirname + '/views/login.html' )
+                } else {
+                  req.session.login = true
+                  res.redirect( '/' )
+                }
+              })
           }
         })
   })
-  
-  // below is *just a simple authentication example* 
-  // for A3, you should check username / password combos in your database
-  if( req.body.password === 'test' ) {
-    // define a variable that we can check in other middleware
-    // the session object is added to our requests by the cookie-session middleware
-    req.session.login = true
-    
-    res.redirect( '/' )
-  }else{
-    // password incorrect, redirect back to login page
-    res.sendFile( __dirname + '/views/login.html' )
-  }
 })
 
 // add some middleware that always sends unauthenicaetd users to the login page
