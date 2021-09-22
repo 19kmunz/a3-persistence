@@ -21,6 +21,7 @@ client.connect()
   })
 
 app.use(express.static("public"))
+app.use(express.static("views"))
 
 // use express.urlencoded to get data sent by defaut form actions
 // or GET requests
@@ -50,10 +51,10 @@ app.post( '/login', (req,res)=> {
     // use redirect to avoid authentication problems when refreshing
     // the page or using the back button, for details see:
     // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-    res.redirect( 'main.html' )
+    res.redirect(  __dirname + '/views/main.html' )
   }else{
     // password incorrect, redirect back to login page
-    res.sendFile( __dirname + '/public/login.html' )
+    res.sendFile( __dirname + '/views/login.html' )
   }
 })
 
@@ -62,12 +63,12 @@ app.use( function( req,res,next) {
   if( req.session.login === true )
     next()
   else
-    res.sendFile( __dirname + '/public/login.html' )
+    res.sendFile( __dirname + '/views/login.html' )
 })
 
 
 app.get("/", (request, response) => {
-  response.sendFile(__dirname)
+  response.sendFile(__dirname + '/views/main.html')
 })
 
 app.post("/submit", bodyParser.json() , ( request, response ) => {
