@@ -52,6 +52,39 @@ app.post( '/login', (req,res) => {
           if (err) throw err;
           if(ress === null) {
             // if login doesnt exist
+            createAccount(req,res,usersDb)
+          } else {
+            // already exists, check login
+            checkLoginPassword(req, res, usersDb)
+          }
+        }
+     )
+  })
+})
+
+const checkLoginPassword = function (req, res, usersDb) {
+  usersDb.findOne({ username: req.body.username, password: req.body.password }, 
+     function(err, query) {
+        console.log(query)
+        if (err) throw err;
+        if(query === null) {
+          res.sendFile( __dirname + '/views/login.html' )
+        } else {
+          req.session.login = true
+          req.session.id = query._id
+          console.log(req.session)
+          res.redirect( '/' )
+        }
+      }
+   )
+}
+
+const createAccount = function (req, res, usersDb) {
+  usersDb.findOne({ username: req.body.username }, 
+       function(err, ress) {
+          if (err) throw err;
+          if(ress === null) {
+            // if login doesnt exist
             usersDb.insertOne({ username: req.body.username, password: req.body.password }, 
              function(err, resss) {
                 console.log(resss)
@@ -87,25 +120,9 @@ app.post( '/login', (req,res) => {
                   })
                 }
               })
-          } else {
-            // already exists, check login
-            usersDb.findOne({ username: req.body.username, password: req.body.password }, 
-             function(err, resss) {
-                console.log(resss)
-                if (err) throw err;
-                if(resss === null) {
-                  res.sendFile( __dirname + '/views/login.html' )
-                } else {
-                  req.session.login = true
-                  req.session.id = resss._id
-                  console.log(req.session)
-                  res.redirect( '/' )
-                }
-              })
-          }
-        })
-  })
-})
+            }
+    })
+}
 
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use( function( req,res,next) {
