@@ -20,6 +20,8 @@ client.connect()
     collection = __collection
   })
 
+app.use(express.static("public"))
+
 // use express.urlencoded to get data sent by defaut form actions
 // or GET requests
 app.use( express.urlencoded({ extended:true }) )
@@ -55,9 +57,14 @@ app.post( '/login', (req,res)=> {
   }
 })
 
+// add some middleware that always sends unauthenicaetd users to the login page
+app.use( function( req,res,next) {
+  if( req.session.login === true )
+    next()
+  else
+    res.sendFile( __dirname + '/public/login.html' )
+})
 
-
-app.use(express.static("public"))
 
 app.get("/", (request, response) => {
   response.sendFile(__dirname)
