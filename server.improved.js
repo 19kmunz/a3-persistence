@@ -69,14 +69,16 @@ app.post( '/login', (req,res) => {
                       name: "Pippi",
                       call: "ARF",
                       link:"https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg",
-                      type:"dog" 
+                      type:"dog" ,
+                      user: resss._id
                     },
                     {
                       user: ObjectId(resss._id),
-                      name: "https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
+                      name: "Mordecai",
                       call: "MEOW",
-                      link:"https://i.imgur.com/Db4cRax.png",
-                      type:"cat" 
+                      link:"https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
+                      type:"cat" ,
+                      user: resss._id
                     }
                   ], 
                    function(err, resss) {
@@ -107,7 +109,7 @@ app.post( '/login', (req,res) => {
 
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use( function( req,res,next) {
-  if( req.session.login === true )
+  if( req.session.hasOwnProperty("id") )
     next()
   else
     res.sendFile( __dirname + '/views/login.html' )
@@ -156,7 +158,7 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
         })
       
     } else {
-      obj.user = request.session.id
+      obj.user = ObjectId(request.session.id)
       collection.insertOne(obj, 
          function(err, ress) {
             if (err) throw err;
@@ -165,8 +167,7 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
     }
     
   } else {
-    collection.find({ user: ObjectId(request.session.id) }).toArray()
-      .then( result => response.json( result ) )
+      getAllUserPets(request, response)
   }
 })
 
@@ -177,8 +178,7 @@ app.post("/delete", bodyParser.json() , ( request, response ) => {
   collection.deleteOne({ _id: ObjectId(idObj.id) }, 
      function(err, ress) {
         if (err) throw err;
-        collection.find({ }).toArray()
-          .then( result => response.json( result ) )
+        getAllUserPets(request, response)
       })
   
 })
