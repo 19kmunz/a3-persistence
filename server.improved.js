@@ -51,17 +51,11 @@ app.post( '/login', (req,res)=> {
     res.redirect( 'main.html' )
   }else{
     // password incorrect, redirect back to login page
-    res.sendFile( __dirname + '/public/index.html' )
+    res.sendFile( __dirname + '/public/login.html' )
   }
 })
 
-// add some middleware that always sends unauthenicaetd users to the login page
-app.use( function( req,res,next) {
-  if( req.session.login === true )
-    next()
-  else
-    res.sendFile( __dirname + '/public/login.html' )
-})
+
 
 app.use(express.static("public"))
 
