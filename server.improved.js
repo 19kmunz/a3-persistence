@@ -9,6 +9,9 @@ const app = express();
 app.use(express.static("public"));
 app.use(express.static("views"));
 
+// defaut form actions
+// or GET requests
+app.use(express.urlencoded({ extended: true }));
 
 // DB Setup
 const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
@@ -38,19 +41,6 @@ app.use(
   })
 );
 
-// defaut form actions
-// or GET requests
-app.use(express.urlencoded({ extended: true }));
-
-// add some middleware that always sends unauthenicaetd users to the login page
-app.use(function(req, res, next) {
-  if (req.session.hasOwnProperty("id")) { 
-    next();
-  } else {
-    res.sendFile(__dirname + "/views/login.html");
-  }
-});
-
 
 //login / create account
 app.post("/login", (req, res) => {
@@ -75,12 +65,21 @@ app.post("/login", (req, res) => {
     });
 });
 
+// DO NOT PUT ABOVE LOGIN INFO
+// add some middleware that always sends unauthenicaetd users to the login page
+app.use(function(req, res, next) {
+  if (req.session.hasOwnProperty("id")) { 
+    next();
+  } else {
+    res.sendFile(__dirname + "/views/login.html");
+  }
+});
+
 const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
   console.log("Authenticating ...")
   usersDb.findOne(
     { username: req.body.username, password: req.body.password },
     function(err, query) {
-      console.log(query);
       if (err) throw err;
       if (query === null) {
         // failed auth, redirect to login
@@ -90,7 +89,6 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
         // login successful
         req.session.login = true;
         req.session.id = query._id;
-        console.log(req.session);
         res.redirect("/");
       }
     }
@@ -139,6 +137,7 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
       }
     ],
     function(err) {
+      console.log
       res.redirect("/");
     }
   );
