@@ -44,8 +44,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
-  if (req !== null && req.session.hasOwnProperty("id")) next();
-  else {
+  if (req.session.hasOwnProperty("id")) { 
+    next();
+  } else {
     req.session.id = ObjectId("6148b6813e52f8cadd08544d");
     res.sendFile(__dirname + "/views/main.html");
   }
@@ -146,7 +147,7 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
 
 // GET - get current db state of pet gallery
 app.get("/", (request, response) => {
-  if (requsrequest.hasOwnProperty("session")) {
+  if (request.hasOwnProperty("session")) {
     getAllUserPets();
   }
   response.sendFile(__dirname + "/views/main.html");
