@@ -20,6 +20,11 @@ client.connect()
     collection = __collection
   })
 
+const getAllUserPets = function (request, response) {
+  collection.find({ user: ObjectId(request.session.id) }).toArray()
+      .then( result => response.json( result ) )
+}
+
 app.use(express.static("public"))
 app.use(express.static("views"))
 
@@ -52,8 +57,10 @@ app.post( '/login', (req,res) => {
                 console.log(resss)
                 if (err) throw err;
                 if(resss === null) {
+                  // error inserting, try logining in again
                   res.sendFile( __dirname + '/views/login.html' )
                 } else {
+                  // setup new account
                   req.session.login = true
                   req.session.id = resss._id
                   collection.insertMany([
@@ -61,12 +68,12 @@ app.post( '/login', (req,res) => {
                       user: ObjectId(resss._id),
                       name: "Pippi",
                       call: "ARF",
-                      link:"https://i.imgur.com/Db4cRax.png",
+                      link:"https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg",
                       type:"dog" 
                     },
                     {
                       user: ObjectId(resss._id),
-                      name: "Mordecai",
+                      name: "https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
                       call: "MEOW",
                       link:"https://i.imgur.com/Db4cRax.png",
                       type:"cat" 
@@ -80,7 +87,7 @@ app.post( '/login', (req,res) => {
                 }
               })
           } else {
-            //
+            // already exists, check login
             usersDb.findOne({ username: req.body.username, password: req.body.password }, 
              function(err, resss) {
                 console.log(resss)
@@ -89,6 +96,7 @@ app.post( '/login', (req,res) => {
                   res.sendFile( __dirname + '/views/login.html' )
                 } else {
                   req.session.login = true
+                  req.session.id = resss._id
                   res.redirect( '/' )
                 }
               })
@@ -144,22 +152,20 @@ app.post("/submit", bodyParser.json() , ( request, response ) => {
           }
         }, function(err, ress) {
           if (err) throw err;
-          collection.find({ }).toArray()
-            .then( result => response.json( result ) )
+          getAllUserPets(request, response)
         })
       
     } else {
-      obj.user = ObjectId("6148b6813e52f8cadd08544d")
+      obj.user = request.session.id
       collection.insertOne(obj, 
          function(err, ress) {
             if (err) throw err;
-            collection.find({ }).toArray()
-              .then( result => response.json( result ) )
+            getAllUserPets(request, response)
           })
     }
     
   } else {
-    collection.find({ }).toArray()
+    collection.find({ user: ObjectId(request.session.id) }).toArray()
       .then( result => response.json( result ) )
   }
 })
