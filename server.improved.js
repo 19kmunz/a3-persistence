@@ -5,6 +5,15 @@ const cookie = require("cookie-session");
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
+// Express setup
+app.use(express.static("public"));
+app.use(express.static("views"));
+
+// defaut form actions
+// or GET requests
+app.use(express.urlencoded({ extended: true }));
+
+// DB Setup
 const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
 
 const client = new mongodb.MongoClient(uri, {
@@ -24,22 +33,9 @@ client
     collection = __collection;
   });
 
-const getAllUserPets = function(request, response) {
-  collection
-    .find({ user: ObjectId(request.session.id) })
-    .toArray()
-    .then(result => response.json(result));
-};
 
-app.use(express.static("public"));
-app.use(express.static("views"));
 
-// use express.urlencoded to get data sent by defaut form actions
-// or GET requests
-app.use(express.urlencoded({ extended: true }));
-
-// cookie middleware! The keys are used for encryption and should be
-// changed
+// cookie middleware! 
 app.use(
   cookie({
     name: "session",
@@ -47,6 +43,14 @@ app.use(
   })
 );
 
+// add some middleware that always sends unauthenicaetd users to the login page
+app.use(function(req, res, next) {
+  if (req.session.hasOwnProperty("id")) next();
+  else res.sendFile(__dirname + "/views/login.html");
+});
+
+
+//login / create account
 app.post("/login", (req, res) => {
   client
     .connect()
@@ -134,38 +138,22 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
   );
 };
 
-// add some middleware that always sends unauthenicaetd users to the login page
-app.use(function(req, res, next) {
-  if (req.session.hasOwnProperty("id")) next();
-  else res.sendFile(__dirname + "/views/login.html");
-});
 
 app.get("/", (request, response) => {
+  getAllUserPets();
   response.sendFile(__dirname + "/views/main.html");
 });
 
-app.post("/submit", bodyParser.json(), (request, response) => {
+app.post("/createPet", bodyParser.json(), (request, response) => {
   console.log(request.body);
   let obj = request.body;
   if (obj.name !== "" && obj.link !== "" && obj.type !== "") {
     obj.call = decideCall(obj.type);
     if (obj.hasOwnProperty("_id")) {
-      collection.updateOne(
-        { _id: ObjectId(obj._id) },
-        {
-          $set: {
-            name: obj.name,
-            link: obj.link,
-            type: obj.type,
-            call: obj.call
-          }
-        },
-        function(err, ress) {
-          if (err) throw err;
-          getAllUserPets(request, response);
-        }
-      );
+      // if it has an id than it is an update request
+update
     } else {
+      // if no id, add to data base
       obj.user = ObjectId(request.session.id);
       collection.insertOne(obj, function(err, ress) {
         if (err) throw err;
@@ -173,6 +161,7 @@ app.post("/submit", bodyParser.json(), (request, response) => {
       });
     }
   } else {
+    //if invalid input, jsut return current state
     getAllUserPets(request, response);
   }
 });
@@ -198,6 +187,24 @@ const decideCall = function (type) {
     }
 }
 
+const updatePetInDb = function (request, response, obj) {
+  collection.updateOne(
+        { _id: ObjectId(obj._id) },
+        {
+          $set: {
+            name: obj.name,
+            link: obj.link,
+            type: obj.type,
+            call: obj.call
+          }
+        },
+        function(err, ress) {
+          if (err) throw err;
+          getAllUserPets(request, response);
+        }
+      );
+}
+
 app.post("/delete", bodyParser.json(), (request, response) => {
   console.log("Delete: " + request.body);
   let idObj = request.body;
@@ -207,6 +214,13 @@ app.post("/delete", bodyParser.json(), (request, response) => {
     getAllUserPets(request, response);
   });
 });
+
+const getAllUserPets = function(request, response) {
+  collection
+    .find({ user: ObjectId(request.session.id) })
+    .toArray()
+    .then(result => response.json(result));
+};
 
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);

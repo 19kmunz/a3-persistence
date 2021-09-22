@@ -59,17 +59,11 @@ const submit = function( e ) {
   return false
 }
 
-const submitNoFields = function( e ) {
+const getCurrData = function( e ) {
 
   const json = { name: '', link: '', type: '' }
 
-  fetch( '/submit', {
-    method:'POST',
-    body: JSON.stringify( json ),
-    headers:{
-      "Content-Type": "application/json"
-    }
-  })
+  fetch( '/')
   .then( function( response ) {
     return response.json();
   })
@@ -89,6 +83,7 @@ const enterEditMode = function(clickedId) {
     +link+'"></label><label>Pet Type:<select name="editType" value="Cat"><option>Dog</option><option>Cat</option><option>Snake</option><option>Bird</option><option>Other</option></select></label></form><button value="'
     +clickedId+'" onclick="confirmEdits(this.value)">Edit That Pet!</button>'
 }
+
 const confirmEdits = function(clickedId) {
   const liElement = document.querySelector( 'li[id="'+clickedId+'"]' )
   const name = liElement.querySelector( 'input[name="editName"]' ),
