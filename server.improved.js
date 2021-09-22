@@ -46,6 +46,7 @@ app.post( '/login', (req,res) => {
        function(err, ress) {
           if (err) throw err;
           if(ress === null) {
+            // if login doesnt exist
             usersDb.insertOne({ username: req.body.username, password: req.body.password }, 
              function(err, resss) {
                 console.log(resss)
@@ -54,10 +55,17 @@ app.post( '/login', (req,res) => {
                   res.sendFile( __dirname + '/views/login.html' )
                 } else {
                   req.session.login = true
-                  res.redirect( '/' )
+                  req.session.id = resss._id
+                  usersDb.insertMany({ username: req.body.username, password: req.body.password }, 
+                   function(err, resss) {
+                      console.log(resss)
+                      if (err) throw err;
+                      res.redirect( '/' )
+                  })
                 }
               })
           } else {
+            //
             usersDb.findOne({ username: req.body.username, password: req.body.password }, 
              function(err, resss) {
                 console.log(resss)
