@@ -31,11 +31,20 @@ app.use( express.urlencoded({ extended:true }) )
 // changed
 app.use( cookie({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['4zFTJx2rVu3AkB', 'aMPnwJ9c4f4DZy']
 }))
 
-app.post( '/login', (req,res)=> {
-  
+app.post( '/login', (req,res)=> async() => {
+  let usersDb = null
+  await client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'a3' ).collection( 'users' )
+  })
+  .then( __collection => {
+    // store reference to collection
+    usersDb = __collection
+  })
   // below is *just a simple authentication example* 
   // for A3, you should check username / password combos in your database
   if( req.body.password === 'test' ) {
