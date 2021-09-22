@@ -56,7 +56,22 @@ app.post( '/login', (req,res) => {
                 } else {
                   req.session.login = true
                   req.session.id = resss._id
-                  usersDb.insertMany({ username: req.body.username, password: req.body.password }, 
+                  collection.insertMany([
+                    {
+                      user: ObjectId(resss._id),
+                      name: "Pippi",
+                      call: "ARF",
+                      link:"https://i.imgur.com/Db4cRax.png",
+                      type:"dog" 
+                    },
+                    {
+                      user: ObjectId(resss._id),
+                      name: "Mordecai",
+                      call: "MEOW",
+                      link:"https://i.imgur.com/Db4cRax.png",
+                      type:"cat" 
+                    }
+                  ], 
                    function(err, resss) {
                       console.log(resss)
                       if (err) throw err;
