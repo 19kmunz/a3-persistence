@@ -9,9 +9,6 @@ const app = express();
 app.use(express.static("public"));
 app.use(express.static("views"));
 
-// defaut form actions
-// or GET requests
-app.use(express.urlencoded({ extended: true }));
 
 // DB Setup
 const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
@@ -33,15 +30,17 @@ client
     collection = __collection;
   });
 
-
-
-// cookie middleware! 
+// cookie middleware!
 app.use(
   cookie({
     name: "session",
     keys: ["4zFTJx2rVu3AkB", "aMPnwJ9c4f4DZy"]
   })
 );
+
+// defaut form actions
+// or GET requests
+app.use(express.urlencoded({ extended: true }));
 
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
@@ -52,6 +51,7 @@ app.use(function(req, res, next) {
 
 //login / create account
 app.post("/login", (req, res) => {
+  console.log("User activity detected!")
   client
     .connect()
     .then(() => {
@@ -73,6 +73,7 @@ app.post("/login", (req, res) => {
 });
 
 const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
+  console.log("Authenticating ...")
   usersDb.findOne(
     { username: req.body.username, password: req.body.password },
     function(err, query) {
@@ -80,6 +81,7 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
       if (err) throw err;
       if (query === null) {
         // failed auth, redirect to login
+        console.log("Failed Authenticating! ")
         res.sendFile(__dirname + "/views/login.html");
       } else {
         // login successful
@@ -93,6 +95,7 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
 };
 
 const createAccount = function(req, res, usersDb) {
+  console.log("Registering New User ...")
   usersDb.insertOne(
     { username: req.body.username, password: req.body.password },
     function(err, createdQuery) {
@@ -138,14 +141,13 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
   );
 };
 
-// GET - get current db state of pet gallery 
+// GET - get current db state of pet gallery
 app.get("/", (request, response) => {
-  if (request.hasOwnProperty( "session" )){
+  if (request.hasOwnProperty("session")) {
     getAllUserPets();
   }
   response.sendFile(__dirname + "/views/main.html");
 });
-
 
 const getAllUserPets = function(request, response) {
   collection
@@ -162,10 +164,10 @@ app.post("/createOrUpdatePet", bodyParser.json(), (request, response) => {
     obj.call = decideCall(obj.type);
     if (obj.hasOwnProperty("_id")) {
       // if it has an id than it is an update request
-      updatePet(request, response, obj)
+      updatePet(request, response, obj);
     } else {
       // if no id, add to data base
-      createPet(request, response, obj)
+      createPet(request, response, obj);
     }
   } else {
     //if invalid input, jsut return current state
@@ -173,52 +175,52 @@ app.post("/createOrUpdatePet", bodyParser.json(), (request, response) => {
   }
 });
 
-const decideCall = function (type) {
+const decideCall = function(type) {
   let flip = Math.random();
   let call;
-    switch (type) {
-      case "Dog":
-        call = flip > 0.5 ? "ARF" : "WOOF";
-        break;
-      case "Cat":
-        call = flip > 0.5 ? "MEOW" : "PURR";
-        break;
-      case "Snake":
-        call = flip > 0.5 ? "TSSS" : "SSSWEET";
-        break;
-      case "Bird":
-        call = flip > 0.5 ? "TWEET" : "CHIRP";
-        break;
-      default:
-        call = flip > 0.5 ? "HEWWO" : "I LOVE YOU";
-    }
-}
+  switch (type) {
+    case "Dog":
+      call = flip > 0.5 ? "ARF" : "WOOF";
+      break;
+    case "Cat":
+      call = flip > 0.5 ? "MEOW" : "PURR";
+      break;
+    case "Snake":
+      call = flip > 0.5 ? "TSSS" : "SSSWEET";
+      break;
+    case "Bird":
+      call = flip > 0.5 ? "TWEET" : "CHIRP";
+      break;
+    default:
+      call = flip > 0.5 ? "HEWWO" : "I LOVE YOU";
+  }
+};
 
-const updatePet = function (request, response, obj) {
+const updatePet = function(request, response, obj) {
   collection.updateOne(
-        { _id: ObjectId(obj._id) },
-        {
-          $set: {
-            name: obj.name,
-            link: obj.link,
-            type: obj.type,
-            call: obj.call
-          }
-        },
-        function(err, ress) {
-          if (err) throw err;
-          getAllUserPets(request, response);
-        }
-      );
-}
+    { _id: ObjectId(obj._id) },
+    {
+      $set: {
+        name: obj.name,
+        link: obj.link,
+        type: obj.type,
+        call: obj.call
+      }
+    },
+    function(err, ress) {
+      if (err) throw err;
+      getAllUserPets(request, response);
+    }
+  );
+};
 
-const createPet = function(request,response,obj) {
+const createPet = function(request, response, obj) {
   obj.user = ObjectId(request.session.id);
   collection.insertOne(obj, function(err, ress) {
     if (err) throw err;
     getAllUserPets(request, response);
   });
-}
+};
 
 app.post("/delete", bodyParser.json(), (request, response) => {
   console.log("Delete: " + request.body);
