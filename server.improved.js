@@ -138,27 +138,34 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
   );
 };
 
-
+// GET - get current db state of pet gallery 
 app.get("/", (request, response) => {
-  getAllUserPets();
+  if (request.hasOwnProperty( "session" )){
+    getAllUserPets();
+  }
   response.sendFile(__dirname + "/views/main.html");
 });
 
-app.post("/createPet", bodyParser.json(), (request, response) => {
+
+const getAllUserPets = function(request, response) {
+  collection
+    .find({ user: ObjectId(request.session.id) })
+    .toArray()
+    .then(result => response.json(result));
+};
+
+// create and update calls - i should split them up but i wont <3
+app.post("/createOrUpdatePet", bodyParser.json(), (request, response) => {
   console.log(request.body);
   let obj = request.body;
   if (obj.name !== "" && obj.link !== "" && obj.type !== "") {
     obj.call = decideCall(obj.type);
     if (obj.hasOwnProperty("_id")) {
       // if it has an id than it is an update request
-update
+      updatePet(request, response, obj)
     } else {
       // if no id, add to data base
-      obj.user = ObjectId(request.session.id);
-      collection.insertOne(obj, function(err, ress) {
-        if (err) throw err;
-        getAllUserPets(request, response);
-      });
+      createPet(request, response, obj)
     }
   } else {
     //if invalid input, jsut return current state
@@ -187,7 +194,7 @@ const decideCall = function (type) {
     }
 }
 
-const updatePetInDb = function (request, response, obj) {
+const updatePet = function (request, response, obj) {
   collection.updateOne(
         { _id: ObjectId(obj._id) },
         {
@@ -205,6 +212,14 @@ const updatePetInDb = function (request, response, obj) {
       );
 }
 
+const createPet = function(request,response,obj) {
+  obj.user = ObjectId(request.session.id);
+  collection.insertOne(obj, function(err, ress) {
+    if (err) throw err;
+    getAllUserPets(request, response);
+  });
+}
+
 app.post("/delete", bodyParser.json(), (request, response) => {
   console.log("Delete: " + request.body);
   let idObj = request.body;
@@ -215,13 +230,7 @@ app.post("/delete", bodyParser.json(), (request, response) => {
   });
 });
 
-const getAllUserPets = function(request, response) {
-  collection
-    .find({ user: ObjectId(request.session.id) })
-    .toArray()
-    .then(result => response.json(result));
-};
-
+// Listen!!!
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });

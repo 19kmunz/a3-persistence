@@ -1,65 +1,5 @@
 
-const refreshGalleryContents = function(json) {
-  let galleryContents = '';
-  for(let i = 0; i < json.length; i++){
-    galleryContents += '<li id="'
-      +json[i]._id+'"> <figure> <img class="petTile" src="'
-      +json[i].link+'" alt="Cute picture of '
-      +json[i].name+'"> <figcaption name="'
-      +json[i].name+'">'
-      +json[i].name+' says '
-      +json[i].call+'</figcaption> </figure> <button value="'
-      +json[i]._id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
-      +json[i]._id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
-  }
-  const gallery = document.querySelector( '#gallery' )
-  gallery.innerHTML = galleryContents;
-}
-const deleteEntry = function (clickedId) {
-  let body = JSON.stringify({"id": clickedId});
-  console.log(body)
-  fetch( '/delete', {
-    method:'POST',
-    body,
-    headers:{
-      "Content-Type": "application/json"
-    }
-  })
-  .then( function( response ) {
-    return response.json();
-  })
-  .then( function(json) {
-    refreshGalleryContents(json)
-  })
-}
-const submit = function( e ) {
-  // prevent default form action from being carried out
-  e.preventDefault()
-
-  const name = document.querySelector( 'input[name="name"]' ),
-          link = document.querySelector( 'input[name="link"]' ),
-          type = document.querySelector( 'select[name="type"]' ),
-        json = { name: name.value, link: link.value, type: type.value },
-        body = JSON.stringify( json )
-
-  fetch( '/submit', {
-    method:'POST',
-    body,
-    headers:{
-      "Content-Type": "application/json"
-    }
-  })
-  .then( function( response ) {
-    return response.json();
-  })
-  .then( function(json) {
-    refreshGalleryContents(json)
-  })
-
-  return false
-}
-
-const getCurrData = function( e ) {
+const getAllPets = function( e ) {
 
   const json = { name: '', link: '', type: '' }
 
@@ -73,6 +13,35 @@ const getCurrData = function( e ) {
 
   return false
 }
+
+const submit = function( e ) {
+  // prevent default form action from being carried out
+  e.preventDefault()
+
+  const name = document.querySelector( 'input[name="name"]' ),
+          link = document.querySelector( 'input[name="link"]' ),
+          type = document.querySelector( 'select[name="type"]' ),
+        json = { name: name.value, link: link.value, type: type.value },
+        body = JSON.stringify( json )
+
+  fetch( '/createOrUpdatePet', {
+    method:'POST',
+    body,
+    headers:{
+      "Content-Type": "application/json"
+    }
+  })
+  .then( function( response ) {
+    return response.json();
+  })
+  .then( function(json) {
+    refreshGalleryContents(json)
+  })
+
+  return false
+}
+
+// Update
 
 const enterEditMode = function(clickedId) {
   const liElement = document.querySelector( 'li[id="'+clickedId+'"]' )
@@ -92,7 +61,7 @@ const confirmEdits = function(clickedId) {
           json = { _id: clickedId, name: name.value, link: link.value, type: type.value },
           body = JSON.stringify( json )
 
-  fetch( '/submit', {
+  fetch( '/createOrUpdatePet', {
     method:'POST',
     body,
     headers:{
@@ -110,13 +79,48 @@ const confirmEdits = function(clickedId) {
   
 }
 
+const deleteEntry = function (clickedId) {
+  let body = JSON.stringify({"id": clickedId});
+  console.log(body)
+  fetch( '/delete', {
+    method:'POST',
+    body,
+    headers:{
+      "Content-Type": "application/json"
+    }
+  })
+  .then( function( response ) {
+    return response.json();
+  })
+  .then( function(json) {
+    refreshGalleryContents(json)
+  })
+}
+
+const refreshGalleryContents = function(json) {
+  let galleryContents = '';
+  for(let i = 0; i < json.length; i++){
+    galleryContents += '<li id="'
+      +json[i]._id+'"> <figure> <img class="petTile" src="'
+      +json[i].link+'" alt="Cute picture of '
+      +json[i].name+'"> <figcaption name="'
+      +json[i].name+'">'
+      +json[i].name+' says '
+      +json[i].call+'</figcaption> </figure> <button value="'
+      +json[i]._id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
+      +json[i]._id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
+  }
+  const gallery = document.querySelector( '#gallery' )
+  gallery.innerHTML = galleryContents;
+}
+
 window.onload = function() {
   const button = document.querySelector( '#createPet' )
   button.onclick = submit
-  submitNoFields()
+  getAllPets()
 }
 
 
 window.onpageshow = function () {
-  submitNoFields()
+  getAllPets()
 }
