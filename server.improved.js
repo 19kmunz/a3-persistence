@@ -134,7 +134,7 @@ const redirectAuthedUser = function(req, res, id) {
   req.session.id = id;
   console.log("Before Redirect Session Id: " + req.session.id);
   console.log("Redirecting User");
-  res.redirect(__dirname + "/public/main.html");
+  res.redirect("/main.html");
 };
 
 // DO NOT PUT ABOVE LOGIN INFO
@@ -148,7 +148,7 @@ app.use(function(req, res, next) {
   }
 });
 
-/*
+
 // GET - get current db state of pet gallery
 app.get("/get", (request, response) => {
   if (request.hasOwnProperty("session")) {
@@ -241,7 +241,7 @@ app.post("/delete", bodyParser.json(), (request, response) => {
     if (err) throw err;
     getAllUserPets(request, response);
   });
-}); */
+}); 
 
 // Express setup
 app.use(express.static("./public/"));
