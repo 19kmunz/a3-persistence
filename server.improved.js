@@ -105,18 +105,18 @@ const createAccount = function(req, res, usersDb) {
         res.sendFile(__dirname + "/views/login.html");
       } else {
         // setup new account
-        console.log(createdQuery);
-        insertSampleDataAndRedirect(req, res, usersDb, createdQuery._id);
+        insertSampleDataAndRedirect(req, res, usersDb, createdQuery.insertedId);
       }
     }
   );
 };
 
 const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
+  console.log("Id:id);
   collection.insertMany(
     [
       {
-        user: ObjectId(req.session.id),
+        user: ObjectId(id),
         name: "Pippi",
         call: "ARF",
         link:
@@ -124,7 +124,7 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
         type: "dog"
       },
       {
-        user: ObjectId(req.session.id),
+        user: ObjectId(id),
         name: "Mordecai",
         call: "MEOW",
         link:
