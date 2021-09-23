@@ -129,23 +129,19 @@ const redirectAuthedUser = function(req, res, id) {
   req.session.id = id;
   console.log("Before Redirect Session Id: " + req.session.id);
   console.log("Redirecting User");
-  res.redirect("/views/main.html");
+  res.redirect(__dirname + "/views/main.html");
 };
 
 // DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
   console.log("Middleware id: " + req.session.id)
-  if (req.session.login == true) {
+  if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl.includes('.css')) {
     next();
   } else {
     res.sendFile(__dirname + "/views/login.html");
   }
 });
-
-// Express setup
-app.use(express.static("public"));
-app.use(express.static("views"));
 
 /*
 // GET - get current db state of pet gallery
@@ -241,6 +237,10 @@ app.post("/delete", bodyParser.json(), (request, response) => {
     getAllUserPets(request, response);
   });
 }); */
+
+// Express setup
+//app.use(express.static("public"));
+app.use(express.static("views"));
 
 // Listen!!!
 const listener = app.listen(process.env.PORT, () => {
