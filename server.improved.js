@@ -90,7 +90,7 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
     [
       {
         user: id,
-        name: "Pippi",
+        name: "Pippi (Default Dog)",
         call: "ARF",
         link:
           "https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg",
@@ -98,7 +98,7 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
       },
       {
         user: id,
-        name: "Mordecai",
+        name: "Mordecai (Default Cat)",
         call: "MEOW",
         link:
           "https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
