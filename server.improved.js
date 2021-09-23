@@ -68,7 +68,6 @@ app.post("/login", (req, res) => {
 // DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
-  console.log("middleware id: "+ req.session.id)
   if (req.session.login == true) { 
     next();
   } else {
@@ -141,7 +140,8 @@ const redirectAuthedUser = function (req, res, id) {
   console.log("Redirecting New User")
   req.session.login = true;
   req.session.id = id;
-  res.redirect("/views/main.html");
+  console.log(req.session.id)
+  res.redirect(__dirname + "/views/main.html");
 }
 
 // GET - get current db state of pet gallery
