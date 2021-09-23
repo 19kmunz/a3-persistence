@@ -5,6 +5,10 @@ const cookie = require("cookie-session");
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
+// defaut form actions
+// or GET requests
+app.use(express.urlencoded({ extended: true }));
+
 // COOKIE MIDDLEWARE
 app.use(
   cookie({
@@ -12,10 +16,6 @@ app.use(
     keys: ["4zFTJx2rVu3AkB", "aMPnwJ9c4f4DZy"]
   })
 );
-
-// defaut form actions
-// or GET requests
-app.use(express.urlencoded({ extended: true }));
 
 // DB SETUP
 const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
