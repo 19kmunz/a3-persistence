@@ -52,9 +52,9 @@ app.post("/login", (req, res) => {
     })
     .then(usersDb => {
       // store reference to collection
-      usersDb.findOne({ username: req.body.username }, function(err, ress) {
+      usersDb.findOne({ username: req.body.username }, function(err, userEntry) {
         if (err) throw err;
-        if (ress === null) {
+        if (userEntry === null) {
           // if login doesnt exist -> new account
           createAccount(req, res, usersDb);
         } else {
@@ -111,13 +111,14 @@ const createAccount = function(req, res, usersDb) {
         req.session.id = createdQuery._id;
         console.log(createdQuery);
         insertSampleDataAndRedirect(req, res, usersDb);
+        //res.redirect("/");  // this is a race condition, but my redirect in the call back wasnt working, so let em race
       }
     }
   );
 };
 
-const insertSampleDataAndRedirect = function(req, res, usersDb) {
-  collection.insertMany(
+const insertSampleDataAndRedirect = async function(req, res, usersDb) {
+  await collection.insertMany(
     [
       {
         user: ObjectId(req.session.id),
@@ -135,12 +136,10 @@ const insertSampleDataAndRedirect = function(req, res, usersDb) {
           "https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
         type: "cat"
       }
-    ],
-    function(err) {
-      console.log
-      res.redirect("/");
-    }
+    ]
   );
+  console.log("Redirecting New User")
+  res.redirect("/");
 };
 
 // GET - get current db state of pet gallery
