@@ -87,9 +87,7 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
         res.sendFile(__dirname + "/views/login.html");
       } else {
         // login successful
-        req.session.login = true;
-        req.session.id = query._id;
-        res.redirect("/");
+        redirectAuthedUser(req, res, query._id)
       }
     }
   );
@@ -107,18 +105,15 @@ const createAccount = function(req, res, usersDb) {
         res.sendFile(__dirname + "/views/login.html");
       } else {
         // setup new account
-        req.session.login = true;
-        req.session.id = createdQuery._id;
         console.log(createdQuery);
-        insertSampleDataAndRedirect(req, res, usersDb);
-        //res.redirect("/");  // this is a race condition, but my redirect in the call back wasnt working, so let em race
+        insertSampleDataAndRedirect(req, res, usersDb, createdQuery._id);
       }
     }
   );
 };
 
-const insertSampleDataAndRedirect = async function(req, res, usersDb) {
-  await collection.insertMany(
+const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
+  collection.insertMany(
     [
       {
         user: ObjectId(req.session.id),
@@ -136,11 +131,18 @@ const insertSampleDataAndRedirect = async function(req, res, usersDb) {
           "https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
         type: "cat"
       }
-    ]
+    ], function(err) {
+        redirectAuthedUser(req, res, id)
+    }
   );
-  console.log("Redirecting New User")
-  res.redirect("/");
 };
+
+const redirectAuthedUser = function (req, res, id) {
+  console.log("Redirecting New User")
+  req.session.login = true;
+  req.session.id = id;
+  res.redirect("/");
+}
 
 // GET - get current db state of pet gallery
 app.get("/", (request, response) => {
