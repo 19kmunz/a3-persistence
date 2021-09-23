@@ -5,7 +5,7 @@ const cookie = require("cookie-session");
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
-// cookie middleware!
+// COOKIE MIDDLEWARE
 app.use(
   cookie({
     name: "session",
@@ -17,7 +17,7 @@ app.use(
 // or GET requests
 app.use(express.urlencoded({ extended: true }));
 
-// DB Setup
+// DB SETUP
 const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
 
 const client = new mongodb.MongoClient(uri, {
@@ -37,7 +37,7 @@ client
     collection = __collection;
   });
 
-//login / create account
+// LOGIN / CREATE ACCOUNT
 app.post("/login", (req, res) => {
   console.log("User activity detected!");
   client
@@ -148,11 +148,12 @@ app.use(function(req, res, next) {
 app.use(express.static("public"));
 app.use(express.static("views"));
 
-// GET - get current db state of pet gallery
+// send defualt page
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/main.html");
 });
 
+// GET - get current db state of pet gallery
 app.get("/get", (request, response) => {
   if (request.hasOwnProperty("session")) {
     getAllUserPets(request, response);
@@ -207,6 +208,7 @@ const decideCall = function(type) {
   return call;
 };
 
+// update query
 const updatePet = function(request, response, obj) {
   collection.updateOne(
     { _id: ObjectId(obj._id) },
@@ -225,6 +227,7 @@ const updatePet = function(request, response, obj) {
   );
 };
 
+// create query
 const createPet = function(request, response, obj) {
   obj.user = ObjectId(request.session.id);
   collection.insertOne(obj, function(err, ress) {
@@ -233,6 +236,7 @@ const createPet = function(request, response, obj) {
   });
 };
 
+// DELETE 
 app.post("/delete", bodyParser.json(), (request, response) => {
   console.log("Delete: " + request.body);
   let idObj = request.body;
