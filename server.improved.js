@@ -47,7 +47,6 @@ app.post("/login", (req, res) => {
       return client.db("a3").collection("users");
     })
     .then(usersDb => {
-      // store reference to collection
       usersDb.findOne({ username: req.body.username }, function(err, userEntry) {
         if (err) throw err;
         if (userEntry === null) {
@@ -127,9 +126,8 @@ const redirectAuthedUser = function (req, res, id) {
   req.session.login = true;
   req.session.id = id;
   console.log(req.session.id)
-  res.redirect("/");
+  res.redirect('/');
 }
-
 
 // DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
