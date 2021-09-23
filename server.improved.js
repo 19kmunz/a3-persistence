@@ -37,6 +37,11 @@ client
     collection = __collection;
   });
 
+app.use(function(req, res, next) {
+  console.log(req.originalUrl)
+  next()
+});
+
 // LOGIN / CREATE ACCOUNT
 app.post("/login", (req, res) => {
   console.log("User activity detected!");
@@ -71,7 +76,7 @@ const createAccount = function(req, res, usersDb) {
       if (err) throw err;
       if (createdQuery === null) {
         // error inserting, try logining in again
-        res.sendFile(__dirname + "/views/login.html");
+        res.sendFile(__dirname + "/public/login.html");
       } else {
         // setup new account
         insertSampleDataAndRedirect(req, res, usersDb, createdQuery.insertedId);
@@ -115,7 +120,7 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
       if (query === null) {
         // failed auth, redirect to login
         console.log("Failed Authenticating! ");
-        res.sendFile(__dirname + "/views/login.html");
+        res.sendFile(__dirname + "/public/login.html");
       } else {
         // login successful
         redirectAuthedUser(req, res, query._id);
@@ -129,7 +134,7 @@ const redirectAuthedUser = function(req, res, id) {
   req.session.id = id;
   console.log("Before Redirect Session Id: " + req.session.id);
   console.log("Redirecting User");
-  res.redirect(__dirname + "/views/main.html");
+  res.redirect(__dirname + "/public/main.html");
 };
 
 // DO NOT PUT ABOVE LOGIN INFO
@@ -139,7 +144,7 @@ app.use(function(req, res, next) {
   if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl.includes('.css')) {
     next();
   } else {
-    res.sendFile(__dirname + "/views/login.html");
+    res.sendFile(__dirname + "/public/login.html");
   }
 });
 
@@ -239,8 +244,7 @@ app.post("/delete", bodyParser.json(), (request, response) => {
 }); */
 
 // Express setup
-//app.use(express.static("public"));
-app.use(express.static("views"));
+app.use(express.static("./public/"));
 
 // Listen!!!
 const listener = app.listen(process.env.PORT, () => {
