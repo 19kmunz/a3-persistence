@@ -62,24 +62,6 @@ app.post("/login", (req, res) => {
     });
 });
 
-const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
-  console.log("Authenticating ...");
-  usersDb.findOne(
-    { username: req.body.username, password: req.body.password },
-    function(err, query) {
-      if (err) throw err;
-      if (query === null) {
-        // failed auth, redirect to login
-        console.log("Failed Authenticating! ");
-        res.sendFile(__dirname + "/views/login.html");
-      } else {
-        // login successful
-        redirectAuthedUser(req, res, query._id);
-      }
-    }
-  );
-};
-
 const createAccount = function(req, res, usersDb) {
   console.log("Registering New User ...");
   usersDb.insertOne(
@@ -120,6 +102,24 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
     ],
     function(err) {
       redirectAuthedUser(req, res, id);
+    }
+  );
+};
+
+const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
+  console.log("Authenticating ...");
+  usersDb.findOne(
+    { username: req.body.username, password: req.body.password },
+    function(err, query) {
+      if (err) throw err;
+      if (query === null) {
+        // failed auth, redirect to login
+        console.log("Failed Authenticating! ");
+        res.sendFile(__dirname + "/views/login.html");
+      } else {
+        // login successful
+        redirectAuthedUser(req, res, query._id);
+      }
     }
   );
 };
