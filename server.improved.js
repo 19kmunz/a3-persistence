@@ -127,11 +127,9 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
 const redirectAuthedUser = function(req, res, id) {
   req.session.login = true;
   req.session.id = id;
-  console.log(req.session.id);
-  req.session.save(function(err) {
-    console.log("Redirecting User");
-    res.redirect("/");
-  });
+  console.log("Before Redirect Session Id: " + req.session.id);
+  console.log("Redirecting User");
+  res.redirect("/");
 };
 
 // DO NOT PUT ABOVE LOGIN INFO
@@ -147,11 +145,6 @@ app.use(function(req, res, next) {
 // Express setup
 app.use(express.static("public"));
 app.use(express.static("views"));
-
-// send defualt page
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/main.html");
-});
 
 // GET - get current db state of pet gallery
 app.get("/get", (request, response) => {
