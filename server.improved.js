@@ -68,7 +68,8 @@ app.post("/login", (req, res) => {
 // DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
-  if (req.session.hasOwnProperty("id")) { 
+  console.log("middleware id: "+ req.session.id)
+  if (req.session.login == true) { 
     next();
   } else {
     res.sendFile(__dirname + "/views/login.html");
@@ -112,11 +113,10 @@ const createAccount = function(req, res, usersDb) {
 };
 
 const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
-  console.log("Id:id);
   collection.insertMany(
     [
       {
-        user: ObjectId(id),
+        user: id,
         name: "Pippi",
         call: "ARF",
         link:
@@ -124,7 +124,7 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
         type: "dog"
       },
       {
-        user: ObjectId(id),
+        user: id,
         name: "Mordecai",
         call: "MEOW",
         link:
@@ -141,7 +141,7 @@ const redirectAuthedUser = function (req, res, id) {
   console.log("Redirecting New User")
   req.session.login = true;
   req.session.id = id;
-  res.redirect("/");
+  res.redirect("/views/main.html");
 }
 
 // GET - get current db state of pet gallery
