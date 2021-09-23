@@ -5,9 +5,13 @@ const cookie = require("cookie-session");
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
-// Express setup
-app.use(express.static("public"));
-app.use(express.static("views"));
+// cookie middleware!
+app.use(
+  cookie({
+    name: "session",
+    keys: ["4zFTJx2rVu3AkB", "aMPnwJ9c4f4DZy"]
+  })
+);
 
 // defaut form actions
 // or GET requests
@@ -33,14 +37,6 @@ client
     collection = __collection;
   });
 
-// cookie middleware!
-app.use(
-  cookie({
-    name: "session",
-    keys: ["4zFTJx2rVu3AkB", "aMPnwJ9c4f4DZy"]
-  })
-);
-
 
 //login / create account
 app.post("/login", (req, res) => {
@@ -63,16 +59,6 @@ app.post("/login", (req, res) => {
         }
       });
     });
-});
-
-// DO NOT PUT ABOVE LOGIN INFO
-// add some middleware that always sends unauthenicaetd users to the login page
-app.use(function(req, res, next) {
-  if (req.session.login == true) { 
-    next();
-  } else {
-    res.sendFile(__dirname + "/views/login.html");
-  }
 });
 
 const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
@@ -137,12 +123,27 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
 };
 
 const redirectAuthedUser = function (req, res, id) {
-  console.log("Redirecting New User")
+  console.log("Redirecting User")
   req.session.login = true;
   req.session.id = id;
   console.log(req.session.id)
-  res.redirect(__dirname + "/views/main.html");
+  res.redirect("/");
 }
+
+
+// DO NOT PUT ABOVE LOGIN INFO
+// add some middleware that always sends unauthenicaetd users to the login page
+app.use(function(req, res, next) {
+  if (req.session.login == true) { 
+    next();
+  } else {
+    res.sendFile(__dirname + "/views/login.html");
+  }
+});
+
+// Express setup
+app.use(express.static("public"));
+app.use(express.static("views"));
 
 // GET - get current db state of pet gallery
 app.get("/", (request, response) => {
