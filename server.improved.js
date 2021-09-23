@@ -37,17 +37,19 @@ client
     collection = __collection;
   });
 
-
 //login / create account
 app.post("/login", (req, res) => {
-  console.log("User activity detected!")
+  console.log("User activity detected!");
   client
     .connect()
     .then(() => {
       return client.db("a3").collection("users");
     })
     .then(usersDb => {
-      usersDb.findOne({ username: req.body.username }, function(err, userEntry) {
+      usersDb.findOne({ username: req.body.username }, function(
+        err,
+        userEntry
+      ) {
         if (err) throw err;
         if (userEntry === null) {
           // if login doesnt exist -> new account
@@ -61,25 +63,25 @@ app.post("/login", (req, res) => {
 });
 
 const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
-  console.log("Authenticating ...")
+  console.log("Authenticating ...");
   usersDb.findOne(
     { username: req.body.username, password: req.body.password },
     function(err, query) {
       if (err) throw err;
       if (query === null) {
         // failed auth, redirect to login
-        console.log("Failed Authenticating! ")
+        console.log("Failed Authenticating! ");
         res.sendFile(__dirname + "/views/login.html");
       } else {
         // login successful
-        redirectAuthedUser(req, res, query._id)
+        redirectAuthedUser(req, res, query._id);
       }
     }
   );
 };
 
 const createAccount = function(req, res, usersDb) {
-  console.log("Registering New User ...")
+  console.log("Registering New User ...");
   usersDb.insertOne(
     { username: req.body.username, password: req.body.password },
     function(err, createdQuery) {
@@ -115,24 +117,27 @@ const insertSampleDataAndRedirect = function(req, res, usersDb, id) {
           "https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg",
         type: "cat"
       }
-    ], function(err) {
-        redirectAuthedUser(req, res, id)
+    ],
+    function(err) {
+      redirectAuthedUser(req, res, id);
     }
   );
 };
 
-const redirectAuthedUser = function (req, res, id) {
-  console.log("Redirecting User")
+const redirectAuthedUser = function(req, res, id) {
   req.session.login = true;
   req.session.id = id;
-  console.log(req.session.id)
-  res.redirect('/');
-}
+  console.log(req.session.id);
+  req.session.save(function(err) {
+    console.log("Redirecting User");
+    res.redirect("/");
+  });
+};
 
 // DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
-  if (req.session.login == true) { 
+  if (req.session.login == true) {
     next();
   } else {
     res.sendFile(__dirname + "/views/login.html");
@@ -199,7 +204,7 @@ const decideCall = function(type) {
     default:
       call = flip > 0.5 ? "HEWWO" : "I LOVE YOU";
   }
-  return call
+  return call;
 };
 
 const updatePet = function(request, response, obj) {
