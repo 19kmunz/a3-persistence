@@ -37,10 +37,6 @@ client
     collection = __collection;
   });
 
-app.use(function(req, res, next) {
-  console.log(req.originalUrl)
-  next()
-});
 
 // LOGIN / CREATE ACCOUNT
 app.post("/login", (req, res) => {
