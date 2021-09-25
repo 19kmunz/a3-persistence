@@ -13,6 +13,10 @@ Include a very brief summary of your project here. Images are encouraged, along 
   - include any modifications to the CSS framework you made via custom CSS you authored
 - the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
 add a little more detail about what it does.
+**Middleware**
+- serve-favicon: provides a favicon for the page. mine is a cat emoji.
+- body-parser: parses request body strings to json
+- cookie-session: enables cookie storage to save login information
 
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy

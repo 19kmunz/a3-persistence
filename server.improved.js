@@ -2,12 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const cookie = require("cookie-session");
+const slash   = require('express-slash');
 var favicon = require('serve-favicon')
 const path = require('path')
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+
+app.use(slash());
 
 // defaut form actions
 // or GET requests
