@@ -2,15 +2,15 @@
 
 Glitch: https://a3-19kmunz.glitch.me
 
+**Summary**
 Pet Gallery is a simple application to view images of your pets! Submit a link to any image and see it clear as day! Underneath the image will be a randomized tag line for your critter. CUrently only explicitly support Dog, Cats, Birds, and Snakes, the site also allows of "Other" pets with their own more generic tag lines.
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
+Images are encouraged (Add Image)
 
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
+**Challenges**
+- challenges you faced in realizing the application FINISH
 **Authentication**
-This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Hopefully my mongodb-santitize middleware will also ensure this method of 
+This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Additionally, my mongodb-santitize middleware will also ensure this method of authentication will be mostly safe.
 **CSS**
 I used the pico.css framework. I liked it because it was easy to install and has a dark/light mode built in. It, also, automatically works on my phone. I modified some CSS for centering formatting and to add the flexbox formatting.
 **Middleware**
@@ -22,7 +22,8 @@ I used the pico.css framework. I liked it because it was easy to install and has
 
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 1**: I hosted my site on heroku. What was better about using the service you chose as compared to Glitch? What (if anything) was worse?
+- **Tech Achievement 2**: I recieved 100% on lighthouse. Add screenshot
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
