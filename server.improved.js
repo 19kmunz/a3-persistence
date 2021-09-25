@@ -2,8 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const cookie = require("cookie-session");
+var favicon = require('serve-favicon')
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
+
+app.use(favicon(__dirname + 'public/favicon.ico'))
 
 // defaut form actions
 // or GET requests
@@ -136,7 +139,6 @@ const redirectAuthedUser = function(req, res, id) {
 // DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
-  console.log("Middleware id: " + req.session.id)
   if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl.includes('.css')) {
     next();
   } else {

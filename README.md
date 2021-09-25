@@ -2,7 +2,8 @@
 
 Glitch: https://a3-19kmunz.glitch.me
 
-Pet Gallery is a simple application to view images of your pets!
+Pet Gallery is a simple application to view images of your pets! Submit a link to any image and see it clear as day! Underneath the image will be a randomized tag line for your critter. CUrently only explicitly support Dog, Cats, Birds, and Snakes, the site also allows of "Other" pets with their own more generic tag lines.
+
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
 
 - the goal of the application
