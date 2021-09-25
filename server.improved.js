@@ -3,10 +3,11 @@ const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const cookie = require("cookie-session");
 var favicon = require('serve-favicon')
+const path = require('path')
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
-app.use(favicon(__dirname + '/assets/favicon.ico'))
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 // defaut form actions
 // or GET requests
