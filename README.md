@@ -9,16 +9,16 @@ Include a very brief summary of your project here. Images are encouraged, along 
 - the goal of the application
 - challenges you faced in realizing the application
 - what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+**Authentication**
+This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Hopefully my mongodb-santitize middleware will also ensure this method of 
+**CSS**
+I used the pico.css framework. I liked it because it was easy to install and has a dark/light mode built in. It, also, automatically works on my phone. I modified some CSS for centering formatting and to add the flexbox formatting.
 **Middleware**
 - serve-favicon: provides a favicon for the page. mine is a cat emoji.
 - body-parser: parses request body strings to json
 - cookie-session: enables cookie storage to save login information
 - mongodb-sanitize: cleans requests to prevent sql injection attacks to mongodb
-- custom
+- custom: I also created a function to ensure unauthenticated cookie users were redirected back to the login page. It is place after all the login auth code to ensure these legitmate authentication requests are not skipped. It checks that the request isnt a /login request within the body aswell to doubly ensure this. I was having issues with css files loading, so the middleware also ensures not to skip any of my css files. If the user does have cookies or is not making a request that doesnt require authentication, the middleware just goes next(). Otherwise it re-sends the login file to further prompt the user.
 
 
 ## Technical Achievements
