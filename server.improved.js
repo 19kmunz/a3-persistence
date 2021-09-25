@@ -6,7 +6,7 @@ var favicon = require('serve-favicon')
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
-app.use(favicon(__dirname + 'public/favicon.ico'))
+app.use(favicon(__dirname + '/assets/favicon.ico'))
 
 // defaut form actions
 // or GET requests
