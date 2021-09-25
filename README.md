@@ -9,6 +9,7 @@ Images are encouraged (Add Image)
 
 **Challenges**
 The first challenge I faced was covnerting my non express server to an express server. Particularily, the get and post requests. Previously, I had not need to include "headers:{ "Content-Type": "application/json" }," so silent falling request drove me a little insane for a while. 
+My next real challenge was working with cookies. I have never had to use them before and it took a while to adjust. It took a while to figure out my default pet data insert statements werent working because i was wrapping an 
 **Authentication**
 This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Additionally, my mongodb-santitize middleware will also ensure this method of authentication will be mostly safe.
 **CSS**
