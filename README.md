@@ -17,6 +17,9 @@ add a little more detail about what it does.
 - serve-favicon: provides a favicon for the page. mine is a cat emoji.
 - body-parser: parses request body strings to json
 - cookie-session: enables cookie storage to save login information
+- mongodb-sanitize: cleans requests to prevent sql injection attacks to mongodb
+- custom
+
 
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy

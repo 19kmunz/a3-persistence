@@ -2,16 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const cookie = require("cookie-session");
-const slash   = require('express-slash');
-var favicon = require('serve-favicon')
+var favicon = require('serve-favicon');
+const mongodbSanitize = require('mongodb-sanitize');
 const path = require('path')
 var ObjectId = require("mongodb").ObjectId;
 const app = express();
 
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-
-app.use(slash());
 
 // defaut form actions
 // or GET requests
@@ -24,6 +22,8 @@ app.use(
     keys: ["4zFTJx2rVu3AkB", "aMPnwJ9c4f4DZy"]
   })
 );
+
+app.use(mongodbSanitize());
 
 // DB SETUP
 const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
@@ -141,7 +141,6 @@ const redirectAuthedUser = function(req, res, id) {
   res.redirect("/main.html");
 };
 
-// DO NOT PUT ABOVE LOGIN INFO
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
   if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl.includes('.css')) {
