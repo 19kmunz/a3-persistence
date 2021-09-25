@@ -3,12 +3,12 @@
 Glitch: https://a3-19kmunz.glitch.me
 
 **Summary**
-Pet Gallery is a simple application to view images of your pets! Submit a link to any image and see it clear as day! Underneath the image will be a randomized tag line for your critter. CUrently only explicitly support Dog, Cats, Birds, and Snakes, the site also allows of "Other" pets with their own more generic tag lines.
+Pet Gallery is a simple application to view images of your pets! Submit a link to any image and see it clear as day! Underneath the image will be a randomized tag line for your critter. Currently only explicitly supports Dog, Cats, Birds, and Snakes, the site also allows of "Other" pets with their own more generic tag lines.
 
 Images are encouraged (Add Image)
 
 **Challenges**
-- challenges you faced in realizing the application FINISH
+The first challenge I faced was covnerting my non express server to an express server. Particularily, the get and post requests. Previously, I had not need to include "headers:{ "Content-Type": "application/json" }," so silent falling request drove me a little insane for a while. 
 **Authentication**
 This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Additionally, my mongodb-santitize middleware will also ensure this method of authentication will be mostly safe.
 **CSS**
