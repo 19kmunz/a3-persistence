@@ -8,7 +8,7 @@ Pet Gallery is a simple application to view images of your pets! Submit a link t
 ![Image of Pet Gallery Page](https://i.imgur.com/R2tJuxd.png)
 
 **Challenges**
-The first challenge I faced was covnerting my non express server to an express server. Particularily, the get and post requests. Previously, I had not need to include "headers:{ "Content-Type": "application/json" }," so silent falling request drove me a little insane for a while. 
+The first challenge I faced was converting my non express server to an express server. Particularily, the get and post requests. Previously, I had not need to include "headers:{ "Content-Type": "application/json" }," so silent falling request drove me a little insane for a while. 
 My next real challenge was working with cookies. I have never had to use them before and it took a while to adjust. It took a while to figure out my default pet data insert statements werent working because i was wrapping an ObjectId object in another ObjectId. Once those kinks were worked out, I reformatted my code and suddenly nothing seemed to work! Turns out the browser I am using, Opera, suddenly decided I was saving cookies too often on one site. Once I switched over to Edge for live testing (and repaired all my debug "fixes"), cookeis were back up an running!
 
 **Authentication**
@@ -28,7 +28,7 @@ I used the pico.css framework. I liked it because it was easy to install and has
 ## Technical Achievements
 - **Tech Achievement 1**: I hosted my site on heroku. What was better about using the service you chose as compared to Glitch? What (if anything) was worse?
 - **Tech Achievement 2**: I recieved 100% on lighthouse. Add screenshot
-- **Tech Achievement 3**: I used Sass for the first time! Even tho this is not in the tech achievements officially, it definitely took some work on my part. I chose to use pico.css as my css framework, btu when I found out that the color contrast on the blue theme was too low, I wanted to switch to the pink theme. I did not know how to modify this template at all! I looked in the docs and fi8gured out I had to use Sass. I installed sass with npm and starting working on hooking everything up. After some complaining about unknown disrectories and location of pico.css
+- **Tech Achievement 3**: (5 Points) I used Sass for the first time! Even tho this is not in the tech achievements officially, it definitely took some work on my part. I chose to use pico.css as my css framework, but when I found out that the color contrast on the blue theme was too low, I wanted to switch to the pink theme. I did not know how to modify this template at all! I looked in the docs and fi8gured out I had to use Sass. Sass (or Syntactically Awesome Style Sheets) is a css extension language that more elegantly handles variable names (among other things) in css. I installed sass with npm and starting working on hooking everything up. After some complaining about unknown directories and the location of pico.css, I now have a sass compiled pink theme for pico.css! These theme changes were provided by the docs, so I also tookthe extra steps to boost color constrast for figcaptions with my own code.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative
