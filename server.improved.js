@@ -124,7 +124,7 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
       if (query === null) {
         // failed auth, redirect to login
         console.log("Failed Authenticating! ");
-        res.sendFile(__dirname + "/public/login.html");
+        res.json({"error":"Oops! Something went wrong when creating your new account! Try again later."});
       } else {
         // login successful
         redirectAuthedUser(req, res, query._id);
