@@ -17,6 +17,16 @@ const refreshGalleryContents = function(json) {
   gallery.innerHTML = galleryContents;
 }
 
+const refreshGalleryContentsHandleError = function(json) {
+    if(json.hasOwnProperty("error")){
+      document.querySelector( '#error' ).innerHTML = json.error;
+      refreshGalleryContents(json.contents)
+    } else {
+      document.querySelector( '#error' ).innerHTML = "";
+      refreshGalleryContents(json)
+    }
+}
+
 window.onload = function() {
   const button = document.querySelector( '#createPet' )
   button.onclick = submit
@@ -36,10 +46,10 @@ const getAllPets = function( e ) {
   })
   .then( function(json) {
     if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHtml = json.error
+      document.querySelector( '#error' ).innerHTML = json.error;
       refreshGalleryContents(json.contents)
     } else {
-      document.querySelector( '#error' ).innerHtml = ""
+      document.querySelector( '#error' ).innerHTML = "";
       refreshGalleryContents(json)
     }
   })
@@ -71,10 +81,10 @@ const submit = function( e ) {
   })
   .then( function(json) {
     if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHtml = json.error
+      document.querySelector( '#error' ).innerHTML = json.error;
       refreshGalleryContents(json.contents)
     } else {
-      document.querySelector( '#error' ).innerHtml = ""
+      document.querySelector( '#error' ).innerHTML = "";
       refreshGalleryContents(json)
     }
   })
@@ -114,10 +124,10 @@ const confirmEdits = function(clickedId) {
   })
   .then( function(json) {
     if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHtml = json.error
+      document.querySelector( '#error' ).innerHTML = json.error;
       refreshGalleryContents(json.contents)
     } else {
-      document.querySelector( '#error' ).innerHtml = ""
+      document.querySelector( '#error' ).innerHTML = "";
       refreshGalleryContents(json)
     }
   })
@@ -130,7 +140,6 @@ const confirmEdits = function(clickedId) {
 
 const deleteEntry = function (clickedId) {
   let body = JSON.stringify({"id": clickedId});
-  console.log(body)
   fetch( '/delete', {
     method:'POST',
     body,
@@ -143,10 +152,10 @@ const deleteEntry = function (clickedId) {
   })
   .then( function(json) {
     if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHtml = json.error
+      document.querySelector( '#error' ).innerHTML = json.error;
       refreshGalleryContents(json.contents)
     } else {
-      document.querySelector( '#error' ).innerHtml = ""
+      document.querySelector( '#error' ).innerHTML = "";
       refreshGalleryContents(json)
     }
   })
