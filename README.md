@@ -32,4 +32,5 @@ I used the pico.css framework. I liked it because it was easy to install and has
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
   - Writing:
-    - Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3'
+    - Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3' to the main page. I could have added another title qualifier to the main page, but I believe it would just be repetitive as that pages purpose is described with "Pet Gallery"
+    - 
