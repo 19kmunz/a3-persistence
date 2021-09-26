@@ -19,6 +19,7 @@
     "mongodb": "^4.1.2",
     "mongodb-sanitize": "^2.2.0",
     "path": "^0.12.7",
+    "sass": "^1.42.1",
     "serve-favicon": "^2.5.0"
   }
 }
