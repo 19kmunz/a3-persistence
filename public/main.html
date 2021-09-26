@@ -1,5 +1,13 @@
 <!doctype html>
 <html lang="en">
+  <script>
+      (function (src, cb) {
+          var s = document.createElement('script'); s.setAttribute('src', src);
+          s.onload = cb; (document.head || document.body).appendChild(s);
+      })('https://ucarecdn.com/libs/blinkloader/3.x/blinkloader.min.js', function () {
+          window.Blinkloader.optimize({ pubkey: 'a13c057eb6589afd0890', fadeIn: true });
+      })
+  </script>
   <head>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/picoTheme.css">
@@ -7,14 +15,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pet Gallery: A Web Page to view All Your Pets!">
-    <script>
-        (function (src, cb) {
-            var s = document.createElement('script'); s.setAttribute('src', src);
-            s.onload = cb; (document.head || document.body).appendChild(s);
-        })('https://ucarecdn.com/libs/blinkloader/3.x/blinkloader.min.js', function () {
-            window.Blinkloader.optimize({ pubkey: 'a13c057eb6589afd0890', fadeIn: true });
-        })
-    </script>
   </head>
   <body>
     <h1>Pet Gallery!</h1>
@@ -25,7 +25,7 @@
     <p id="error"></p>
     <form action="">
       <label>Pet Name: <input name="name"></label>
-      <label>Image Link: <input name="link"></label>
+      <label><em data-tooltip="Tip: Use Imgur or Discord links for Optimization!">Image Link: </em><input name="link"></label>
       <label>Pet Type:
         <select name="type">
           <option>Dog</option>
