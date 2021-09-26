@@ -27,7 +27,7 @@ I used the pico.css framework. I liked it because it was easy to install and has
 
 ## Technical Achievements
 
-- **Tech Achievement 1**: I got 100% on light house! This is mostly thanks too (uploadcare)[https://uploadcare.com/docs/delivery/adaptive-delivery/]! Very helpful for image optimization.
+- **Tech Achievement 1**: I got 100% on light house! This is mostly thanks too [uploadcare](https://uploadcare.com/docs/delivery/adaptive-delivery/)! Very helpful for image optimization.
   ![Image of 100 on lighthouse](https://i.imgur.com/gGkOy7N.png)
 - **Tech Achievement 2**: (5 Points) I used Sass for the first time! Even tho this is not in the tech achievements officially, it definitely took some work on my part. I chose to use pico.css as my css framework, but when I found out that the color contrast on the blue theme was too low, I wanted to switch to the pink theme. I did not know how to modify this template at all! I looked in the docs and fi8gured out I had to use Sass. Sass (or Syntactically Awesome Style Sheets) is a css extension language that more elegantly handles variable names (among other things) in css. I installed sass with npm and starting working on hooking everything up. After some complaining about unknown directories and the location of pico.css, I now have a sass compiled pink theme for pico.css! I also hunted through the pico defined variables to modify grey-500, which controls the muted colors, so I can switch it to be the same as the normal text to keep good contrast accross the site.
 
