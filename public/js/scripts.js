@@ -99,7 +99,8 @@ const refreshGalleryContents = function(json) {
   for(let i = 0; i < json.length; i++){
     galleryContents += '<li id="'
       +json[i]._id+'"> <figure> <img class="petTile" src="'
-      +json[i].link+'" alt="Cute picture of '
+      +json[i].link+'" alt="Picture of a '
+      + ((json[i].type === "Other") ? "Pet" : json[i].type) + ' named '
       +json[i].name+'"> <figcaption name="'
       +json[i].name+'">'
       +json[i].name+' says '
