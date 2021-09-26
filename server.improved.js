@@ -26,7 +26,7 @@ app.use(
 app.use(mongodbSanitize());
 
 // DB SETUP
-const uri = "mongodb+srv://19kmunz:S0nOzOXBAuYOcDxl@cluster0.xpfgv.mongodb.net";
+const uri = "mongodb+srv://"+process.env.DBUSERNAME+":"+process.env.DBPASSWORD+"@cluster0.xpfgv.mongodb.net";
 
 const client = new mongodb.MongoClient(uri, {
   useNewUrlParser: true,
