@@ -27,15 +27,18 @@ I used the pico.css framework. I liked it because it was easy to install and has
 
 ## Technical Achievements
 - **Tech Achievement 1**: I hosted my site on heroku. What was better about using the service you chose as compared to Glitch? What (if anything) was worse?
-- **Tech Achievement 2**: I recieved 100% on lighthouse. Add screenshot
-- **Tech Achievement 3**: (5 Points) I used Sass for the first time! Even tho this is not in the tech achievements officially, it definitely took some work on my part. I chose to use pico.css as my css framework, but when I found out that the color contrast on the blue theme was too low, I wanted to switch to the pink theme. I did not know how to modify this template at all! I looked in the docs and fi8gured out I had to use Sass. Sass (or Syntactically Awesome Style Sheets) is a css extension language that more elegantly handles variable names (among other things) in css. I installed sass with npm and starting working on hooking everything up. After some complaining about unknown directories and the location of pico.css, I now have a sass compiled pink theme for pico.css! I also hunted through the pico defined variables to modify grey-500, which controls the muted colors, so I can switch it to be the same as the normal text to keep good contrast accross the site.
+- **Tech Achievement 2**: (5 Points) I used Sass for the first time! Even tho this is not in the tech achievements officially, it definitely took some work on my part. I chose to use pico.css as my css framework, but when I found out that the color contrast on the blue theme was too low, I wanted to switch to the pink theme. I did not know how to modify this template at all! I looked in the docs and fi8gured out I had to use Sass. Sass (or Syntactically Awesome Style Sheets) is a css extension language that more elegantly handles variable names (among other things) in css. I installed sass with npm and starting working on hooking everything up. After some complaining about unknown directories and the location of pico.css, I now have a sass compiled pink theme for pico.css! I also hunted through the pico defined variables to modify grey-500, which controls the muted colors, so I can switch it to be the same as the normal text to keep good contrast accross the site.
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative
   - Writing:
     1. Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3' to the main page. I could have added another title qualifier to the main page, but I believe it would just be repetitive as that pages purpose is described with "Pet Gallery"
     2. Write meaningful text alternatives for images: I added an alttext to all the images in the pet gallery: "Picture of a TYPE named NAME." I also added a ternary operator inline check to change this alternative text to read "Picture of a Pet named NAME" if the pet species is "Other" to make this text easier to understand.
-    3. Provide Clear Instructions
-    3. Keep Content Clear and Concise: I added clarification to the sign-in page. Now it reads:
+    3. Provide Clear Instructions: I added a paragraph at the top of the pet gallery page that provides basic instructions on how to use the site. It reads:
+      
+      > Add pets to your gallery by inputing their name, a link to an image of them, and their species below!<br>
+      > Edit and delete any pet by using their corresponding buttons.
+      
+    4. Keep Content Clear and Concise: I added clarification to the sign-in page. Now it reads:
   
       > You will be redirected to Pet Gallery once you <br>
       > <b>Sign-In</b> with your username or <b>Register</b> with an unused username below! 
@@ -47,11 +50,13 @@ I used the pico.css framework. I liked it because it was easy to install and has
       
       This puts the instructions in laymans terms while also adding clarity to what will happen next. It also adds empahsis to the two methods by bolding the words and seperating it from the redirection information. It is shorter and clearer than before!
   - Designing:
-    4. Provide sufficient contrast between foreground and background: Turns out the default button color for pico.css does not provide enough contrast with its white text, along with captions being too light gray for white backgrounds! I have re-color schemed the page to the pink theme over the blue theme to provide 4.5+ contrast ratios to all elements and changed the figcaption text to the same grey as the rest of the text.
-    5. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
-    6. Provide easily identifiable feedback: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong ADD aria-invalid="true"
+    5. Provide sufficient contrast between foreground and background: Turns out the default button color for pico.css does not provide enough contrast with its white text, along with captions being too light gray for white backgrounds! I have re-color schemed the page to the pink theme over the blue theme to provide 4.5+ contrast ratios to all elements and changed the figcaption text to the same grey as the rest of the text.
+    6. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
+    7. Provide easily identifiable feedback: Previosuly, whenever an insert query has an error, the user had no information on what went wrong. It would jsut look like the screen refreshed. Now, a Tooltip will inform the user of the feedback from the db. ADDDDDDDDDDD
   - Developing: 
-    7. Associate a label with every form control: As mentioned, the login-in form previously did not have any labels, and now it does!
-    8. Include alternative text for images: I added alternative text for every gallery image.
-    9. Reflect the reading order in the code order: I reorganized my code to have the logical structure of setup -> login -> get -> create -> delete
+    8. Associate a label with every form control: As mentioned, the login-in form previously did not have any labels, and now it does!
+    9. Include alternative text for images: I added alternative text for every gallery image.
+    10. Identify page language and language changes: I added lang="en" to the top of both the main page and the login page.
+    11. Help users avoid and correct mistakes: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong, so they wont be able to correct it. I have not added tooltips with suggestions whenever login fails. ADDDDDDDDDDDDDDDDDDDDDD aria-invalid="true" 
+    12. Reflect the reading order in the code order: I reorganized my code to have the logical structure of setup -> login -> get -> create -> delete
     
