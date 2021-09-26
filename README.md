@@ -34,4 +34,15 @@ I used the pico.css framework. I liked it because it was easy to install and has
   - Writing:
     - Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3' to the main page. I could have added another title qualifier to the main page, but I believe it would just be repetitive as that pages purpose is described with "Pet Gallery"
     - Write meaningful text alternatives for images: I added an alttext to all the images in the pet gallery: "Picture of a TYPE named NAME." I also added a ternary operator inline check to change this alternative text to read "Picture of a Pet named NAME" if the pet species is "Other" to make this text easier to understand.
+    - Keep Content Clear and Concise: I added clarification to the sign-in page. Now it reads
+  
+  <b>Login:</b> Sign in below with pre-existing credentials 
+  <b>Create Account: </b> Register below with an unused username and password 
+  > You will be automatically redirected to Pet Gallery if authentication is successful.
     
+      instead of: 
+      
+  > Login with a pre-existing user name and password or 
+  > Automatically create a new account by signing in with a new username + password!
+      
+      Although this is longer, it is clearer by using formatting and breaks. I hope to use the words Login/Sign-in and Create Account/Register to give the user context clues to the nature of the different sign in types.
