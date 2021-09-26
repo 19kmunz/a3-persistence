@@ -7,6 +7,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pet Gallery: A Web Page to view All Your Pets!">
+    <script>
+        (function (src, cb) {
+            var s = document.createElement('script'); s.setAttribute('src', src);
+            s.onload = cb; (document.head || document.body).appendChild(s);
+        })('https://ucarecdn.com/libs/blinkloader/3.x/blinkloader.min.js', function () {
+            window.Blinkloader.optimize({ pubkey: 'a13c057eb6589afd0890', fadeIn: true });
+        })
+    </script>
   </head>
   <body>
     <h1>Pet Gallery!</h1>
@@ -32,7 +40,7 @@
     <ul id="gallery">
       <li id="1">
         <figure>
-          <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg" alt="Cute picture of Pippi">
+          <img class="petTile" data-blink-src="https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg" alt="Cute picture of Pippi">
           <figcaption name="Pippi (LOADING)">Pippi says WOOF</figcaption>
         </figure>
         <button value="1" onclick="deleteEntry(this.value)">Delete</button>

@@ -3,7 +3,7 @@ const refreshGalleryContents = function(json) {
   let galleryContents = '';
   for(let i = 0; i < json.length; i++){
     galleryContents += '<li id="'
-      +json[i]._id+'"> <figure> <img class="petTile" src="'
+      +json[i]._id+'"> <figure> <img class="petTile" data-blink-src="'
       +json[i].link+'" alt="Picture of a '
       + ((json[i].type === "Other") ? "Pet" : json[i].type) + ' named '
       +json[i].name+'"> <figcaption name="'
