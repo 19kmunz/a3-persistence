@@ -19,7 +19,7 @@ const refreshGalleryContents = function(json) {
 
 const refreshGalleryContentsHandleError = function(json) {
     if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHTML = json.error;
+      document.querySelector( '#error' ).innerHTML = "<b>Error: </b>" + json.error;
       refreshGalleryContents(json.contents)
     } else {
       document.querySelector( '#error' ).innerHTML = "";
@@ -45,13 +45,7 @@ const getAllPets = function( e ) {
     return response.json();
   })
   .then( function(json) {
-    if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHTML = json.error;
-      refreshGalleryContents(json.contents)
-    } else {
-      document.querySelector( '#error' ).innerHTML = "";
-      refreshGalleryContents(json)
-    }
+    refreshGalleryContentsHandleError(json)
   })
 
   return false
@@ -80,13 +74,7 @@ const submit = function( e ) {
     return response.json();
   })
   .then( function(json) {
-    if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHTML = json.error;
-      refreshGalleryContents(json.contents)
-    } else {
-      document.querySelector( '#error' ).innerHTML = "";
-      refreshGalleryContents(json)
-    }
+    refreshGalleryContentsHandleError(json)
   })
 
   return false
@@ -123,13 +111,7 @@ const confirmEdits = function(clickedId) {
     return response.json();
   })
   .then( function(json) {
-    if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHTML = json.error;
-      refreshGalleryContents(json.contents)
-    } else {
-      document.querySelector( '#error' ).innerHTML = "";
-      refreshGalleryContents(json)
-    }
+    refreshGalleryContentsHandleError(json)
   })
 
   return false
@@ -151,12 +133,6 @@ const deleteEntry = function (clickedId) {
     return response.json();
   })
   .then( function(json) {
-    if(json.hasOwnProperty("error")){
-      document.querySelector( '#error' ).innerHTML = json.error;
-      refreshGalleryContents(json.contents)
-    } else {
-      document.querySelector( '#error' ).innerHTML = "";
-      refreshGalleryContents(json)
-    }
+    refreshGalleryContentsHandleError(json)
   })
 }
