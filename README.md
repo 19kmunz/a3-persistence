@@ -3,17 +3,20 @@
 Glitch: https://a3-19kmunz.glitch.me
 
 **Summary**
-Pet Gallery is a simple application to view images of your pets! Submit a link to any image and see it clear as day! Underneath the image will be a randomized tag line for your critter. Currently only explicitly supports Dog, Cats, Birds, and Snakes, the site also allows of "Other" pets with their own more generic tag lines.
 
-Images are encouraged (Add Image)
+Pet Gallery is a simple application to view images of your pets! Submit a link to any image and see it clear as day! Underneath the image will be a randomized tag line for your critter. Currently only explicitly supports Dog, Cats, Birds, and Snakes, the site also allows of "Other" pets with their own more generic tag lines.
+![Image of Pet Gallery Page](https://i.imgur.com/R2tJuxd.png)
 
 **Challenges**
 The first challenge I faced was covnerting my non express server to an express server. Particularily, the get and post requests. Previously, I had not need to include "headers:{ "Content-Type": "application/json" }," so silent falling request drove me a little insane for a while. 
-My next real challenge was working with cookies. I have never had to use them before and it took a while to adjust. It took a while to figure out my default pet data insert statements werent working because i was wrapping an 
+My next real challenge was working with cookies. I have never had to use them before and it took a while to adjust. It took a while to figure out my default pet data insert statements werent working because i was wrapping an ObjectId object in another ObjectId. Once those kinks were worked out, I reformatted my code and suddenly nothing seemed to work! Turns out the browser I am using, Opera, suddenly decided I was saving cookies too often on one site. Once I switched over to Edge for live testing (and repaired all my debug "fixes"), cookeis were back up an running!
+
 **Authentication**
 This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Additionally, my mongodb-santitize middleware will also ensure this method of authentication will be mostly safe.
+
 **CSS**
 I used the pico.css framework. I liked it because it was easy to install and has a dark/light mode built in. It, also, automatically works on my phone. I modified some CSS for centering formatting and to add the flexbox formatting.
+
 **Middleware**
 - serve-favicon: provides a favicon for the page. mine is a cat emoji.
 - body-parser: parses request body strings to json
