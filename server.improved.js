@@ -143,7 +143,7 @@ const redirectAuthedUser = function(req, res, id) {
 
 // add some middleware that always sends unauthenicaetd users to the login page
 app.use(function(req, res, next) {
-  if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl.includes('.css')) {
+  if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl === '/loginFailed.html' || req.originalUrl === '/creationFailed.html' || req.originalUrl.includes('.css')) {
     next();
   } else {
     res.sendFile(__dirname + "/public/login.html");
