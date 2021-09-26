@@ -46,6 +46,6 @@ I used the pico.css framework. I liked it because it was easy to install and has
       
       This puts the instructions in laymans terms while also adding clarity to what will happen next. It also adds empahsis to the two methods by bolding the words and seperating it from the redirection information. It is shorter and clearer than before!
   - Designing:
-    4. Provide easily identifiable feedback: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong ADD 
-    
+    4. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
+    5. Provide easily identifiable feedback: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong ADD 
   - Developing: 
