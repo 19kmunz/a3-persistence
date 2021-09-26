@@ -31,3 +31,5 @@ I used the pico.css framework. I liked it because it was easy to install and has
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+  - Writing:
+    - Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3'
