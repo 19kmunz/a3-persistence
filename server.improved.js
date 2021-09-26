@@ -165,6 +165,13 @@ const getAllUserPets = function(request, response) {
     .then(result => response.json(result));
 };
 
+const getAllUserPetsError = function(request, response, error) {
+  collection
+    .find({ user: ObjectId(request.session.id) })
+    .toArray()
+    .then(result => response.json({error: error, contents: result}));
+};
+
 // create and update calls - i should split them up but i wont <3
 app.post("/createOrUpdatePet", bodyParser.json(), (request, response) => {
   console.log(request.body);
@@ -180,7 +187,7 @@ app.post("/createOrUpdatePet", bodyParser.json(), (request, response) => {
     }
   } else {
     //if invalid input, jsut return current state
-    getAllUserPets(request, response);
+    getAllUserPetsError(request, response, "Oops! One of your create or update inputs was an empty string! Please use at least one character for names and links.");
   }
 });
 
@@ -219,7 +226,7 @@ const updatePet = function(request, response, obj) {
       }
     },
     function(err, ress) {
-      if (err) throw err;
+    if (err) getAllUserPetsError(request, response, "There was an error updating your pet! Try Again later.");
       getAllUserPets(request, response);
     }
   );
@@ -229,7 +236,7 @@ const updatePet = function(request, response, obj) {
 const createPet = function(request, response, obj) {
   obj.user = ObjectId(request.session.id);
   collection.insertOne(obj, function(err, ress) {
-    if (err) throw err;
+    if (err) getAllUserPetsError(request, response, "There was an error creating your new pet! Try Again later.");
     getAllUserPets(request, response);
   });
 };
@@ -240,7 +247,7 @@ app.post("/delete", bodyParser.json(), (request, response) => {
   let idObj = request.body;
   console.log(idObj);
   collection.deleteOne({ _id: ObjectId(idObj.id) }, function(err, ress) {
-    if (err) throw err;
+    if (err) getAllUserPetsError(request, response, "There was an error deleting your pet! Try Again later.");
     getAllUserPets(request, response);
   });
 }); 

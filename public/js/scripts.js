@@ -35,7 +35,13 @@ const getAllPets = function( e ) {
     return response.json();
   })
   .then( function(json) {
-    refreshGalleryContents(json)
+    if(json.hasOwnProperty("error")){
+      document.querySelector( '#error' ).innerHtml = json.error
+      refreshGalleryContents(json.contents)
+    } else {
+      document.querySelector( '#error' ).innerHtml = ""
+      refreshGalleryContents(json)
+    }
   })
 
   return false
@@ -64,7 +70,13 @@ const submit = function( e ) {
     return response.json();
   })
   .then( function(json) {
-    refreshGalleryContents(json)
+    if(json.hasOwnProperty("error")){
+      document.querySelector( '#error' ).innerHtml = json.error
+      refreshGalleryContents(json.contents)
+    } else {
+      document.querySelector( '#error' ).innerHtml = ""
+      refreshGalleryContents(json)
+    }
   })
 
   return false
@@ -101,7 +113,13 @@ const confirmEdits = function(clickedId) {
     return response.json();
   })
   .then( function(json) {
-    refreshGalleryContents(json)
+    if(json.hasOwnProperty("error")){
+      document.querySelector( '#error' ).innerHtml = json.error
+      refreshGalleryContents(json.contents)
+    } else {
+      document.querySelector( '#error' ).innerHtml = ""
+      refreshGalleryContents(json)
+    }
   })
 
   return false
@@ -124,6 +142,12 @@ const deleteEntry = function (clickedId) {
     return response.json();
   })
   .then( function(json) {
-    refreshGalleryContents(json)
+    if(json.hasOwnProperty("error")){
+      document.querySelector( '#error' ).innerHtml = json.error
+      refreshGalleryContents(json.contents)
+    } else {
+      document.querySelector( '#error' ).innerHtml = ""
+      refreshGalleryContents(json)
+    }
   })
 }
