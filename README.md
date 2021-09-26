@@ -28,6 +28,7 @@ I used the pico.css framework. I liked it because it was easy to install and has
 ## Technical Achievements
 - **Tech Achievement 1**: I hosted my site on heroku. What was better about using the service you chose as compared to Glitch? What (if anything) was worse?
 - **Tech Achievement 2**: I recieved 100% on lighthouse. Add screenshot
+- **Tech Achievement 3**: I used Sass for the first time! Even tho this is not in the tech achievements officially, it definitely took some work on my part. I chose to use pico.css as my css framework, btu when I found out that the color contrast on the blue theme was too low, I wanted to switch to the pink theme. I did not know how to modify this template at all! I looked in the docs and fi8gured out I had to use Sass. I installed sass with npm and starting working on hooking everything up. After some complaining about unknown disrectories and location of pico.css
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative
