@@ -20,3 +20,7 @@ figure {
     inline-size: 200px;
     overflow-wrap: break-word;
 }
+
+:root {
+  --primary: #fb8c00;
+}
