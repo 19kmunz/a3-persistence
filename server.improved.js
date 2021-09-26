@@ -80,7 +80,7 @@ const createAccount = function(req, res, usersDb) {
       if (err) throw err;
       if (createdQuery === null) {
         // error inserting, try logining in again
-        res.sendFile(__dirname + "/public/login.html");
+        res.json({"error":"Oops! There was an error creating your account. Try again later.", "highlight": false });
       } else {
         // setup new account
         insertSampleDataAndRedirect(req, res, usersDb, createdQuery.insertedId);
@@ -124,7 +124,7 @@ const checkLoginPasswordAndRedirect = function(req, res, usersDb) {
       if (query === null) {
         // failed auth, redirect to login
         console.log("Failed Authenticating! ");
-        res.json({"error":"Oops! Something went wrong when creating your new account! Try again later."});
+        res.json({"error":"Oops! This account already exists, but the username and password did not match!", "highlight": true });
       } else {
         // login successful
         redirectAuthedUser(req, res, query._id);

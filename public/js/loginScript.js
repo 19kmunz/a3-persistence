@@ -9,8 +9,7 @@ const submit = function( e ) {
 
   const username = document.querySelector( 'input[name="username"]' ),
           password = document.querySelector( 'input[name="password"]' ),
-          type = document.querySelector( 'select[name="type"]' ),
-        json = { name: name.value, link: link.value, type: type.value },
+        json = { username: username.value, password: password},
         body = JSON.stringify( json )
 
   fetch( '/login', {
@@ -24,7 +23,10 @@ const submit = function( e ) {
     return response.json();
   })
   .then( function(json) {
-    refreshGalleryContents(json)
+    if(json.hasOwnProperty("error")){
+       const errorP = document.querySelector( '#error' )
+       errorP.innerHtml = json.error
+    }
   })
 
   return false
