@@ -13,9 +13,12 @@
       <b>Sign-In</b> with your username or <b>Register</b> with an unused username below! 
     </p>
     <form action='/login' method='POST'>
-      <label>Username:<input type='text' name='username'></label>
-      <label>Password:<input type='password' name='password'></label>
+      <label>Username:<input type='text' name='username' aria-invalid="true"></label>
+      <label>Password:<input type='password' name='password' aria-invalid="true"></label>
       <input type='submit'>
     </form>
+    <p>
+      Oops! This account already exists, but the username and password did not match! Try using the right password.
+    </p>
   </body>
 </html>
