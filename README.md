@@ -30,19 +30,20 @@ I used the pico.css framework. I liked it because it was easy to install and has
 - **Tech Achievement 2**: I recieved 100% on lighthouse. Add screenshot
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative
   - Writing:
-    - Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3' to the main page. I could have added another title qualifier to the main page, but I believe it would just be repetitive as that pages purpose is described with "Pet Gallery"
-    - Write meaningful text alternatives for images: I added an alttext to all the images in the pet gallery: "Picture of a TYPE named NAME." I also added a ternary operator inline check to change this alternative text to read "Picture of a Pet named NAME" if the pet species is "Other" to make this text easier to understand.
-    - Keep Content Clear and Concise: I added clarification to the sign-in page. Now it reads
+    1. Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3' to the main page. I could have added another title qualifier to the main page, but I believe it would just be repetitive as that pages purpose is described with "Pet Gallery"
+    2. Write meaningful text alternatives for images: I added an alttext to all the images in the pet gallery: "Picture of a TYPE named NAME." I also added a ternary operator inline check to change this alternative text to read "Picture of a Pet named NAME" if the pet species is "Other" to make this text easier to understand.
+    3. Keep Content Clear and Concise: I added clarification to the sign-in page. Now it reads:
   
-  <b>Login:</b> Sign in below with pre-existing credentials 
-  <b>Create Account: </b> Register below with an unused username and password 
-  > You will be automatically redirected to Pet Gallery if authentication is successful.
+      > You will be redirected to Pet Gallery once you <br>
+      > <b>Sign-In</b> with your username or <b>Register</b> with an unused username below! 
     
       instead of: 
       
-  > Login with a pre-existing user name and password or 
-  > Automatically create a new account by signing in with a new username + password!
+      > Login with a pre-existing user name and password or <br>
+      > Automatically create a new account by signing in with a new username + password!
       
-      Although this is longer, it is clearer by using formatting and breaks. I hope to use the words Login/Sign-in and Create Account/Register to give the user context clues to the nature of the different sign in types.
+      This puts the instructions in laymans terms while also adding clarity to what will happen next. It also adds empahsis to the two methods by bolding the words and seperating it from the redirection information. It is shorter and clearer than before!
+  - Designing:
+  - Developing: 
