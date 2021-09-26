@@ -1,4 +1,14 @@
 /* Custom Pink version */
+[data-theme=dark],
+:root:not([data-theme=light]) {
+  --muted-color: #8799A4;
+}
+
+[data-theme=light],
+:root:not([data-theme=dark]) {
+  --muted-color: #64717A;
+}
+
 /*!
  * Pico.css v1.3.3 (https://picocss.com)
  * Copyright 2019-2021 - Licensed under MIT
