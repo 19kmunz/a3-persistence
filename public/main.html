@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="css/picoTheme.css">
     <title>Pet Gallery | CS4241 A3</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pet Gallery: A Web Page to view All Your Pets!">
   </head>
   <body>
     <h1>Pet Gallery!</h1>
@@ -31,34 +33,10 @@
       <li id="1">
         <figure>
           <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg" alt="Cute picture of Pippi">
-          <figcaption name="Pippi">Pippi says WOOF</figcaption>
+          <figcaption name="Pippi (LOADING)">Pippi says WOOF</figcaption>
         </figure>
         <button value="1" onclick="deleteEntry(this.value)">Delete</button>
         <button value="1" onclick="enterEditMode(this.value)">Edit</button>
-      </li>
-      <li id="2">
-        <form action="">
-          <label>Pet Name: <input name="name" value="Moredcai"></label>
-          <label>Image Link: <input name="link" value="link"></label>
-          <label>Pet Type:
-            <select name="type" value="Cat">
-              <option>Dog</option>
-              <option>Cat</option>
-              <option>Snake</option>
-              <option>Bird</option>
-              <option>Other</option>
-            </select>
-          </label>
-        </form>
-        <button value="2" onclick="confirmEdits(this.value)">Confirm Edits</button>
-      </li>
-      <li id="3">
-        <figure>
-          <img class="petTile" src="https://i.imgur.com/Db4cRax.png" alt="Cute picture of Bubba">
-          <figcaption name="Bubba">Bubba says HI</figcaption>
-        </figure>
-        <button value="3" onclick="deleteEntry(this.value)">Delete</button>
-        <button value="3" onclick="enterEditMode(this.value)">Edit</button>
       </li>
     </ul>
   </body>
