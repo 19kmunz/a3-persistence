@@ -15,7 +15,7 @@ My next real challenge was working with cookies. I have never had to use them be
 This website is autheticated with a simple login form, cookies, and a mongodb collection. The user inputs their username and password, which sends to the database to check the validity. If the entry exists in the users table, the user will recieve their id in the cookie session and move onto the main page. The main gallery uses their stashed cookie id to submit new pets to the gallery and note their owner. This way of authenticationg was relitivaly easy and straight forward. Additionally, my mongodb-santitize middleware will also ensure this method of authentication will be mostly safe.
 
 **CSS**
-I used the pico.css framework. I liked it because it was easy to install and has a dark/light mode built in. It, also, automatically works on my phone. I modified some CSS for centering formatting and to add the flexbox formatting.
+I used the pico.css framework. I liked it because it was easy to install and has a dark/light mode built in. It, also, automatically works on my phone. I modified some CSS for centering formatting and to add the flexbox formatting, as well as some sass changes for color contrast.
 
 **Middleware**
 - serve-favicon: provides a favicon for the page. mine is a cat emoji.
@@ -50,13 +50,13 @@ I used the pico.css framework. I liked it because it was easy to install and has
       
       This puts the instructions in laymans terms while also adding clarity to what will happen next. It also adds empahsis to the two methods by bolding the words and seperating it from the redirection information. It is shorter and clearer than before!
   - Designing:
-    5. Provide sufficient contrast between foreground and background: Turns out the default button color for pico.css does not provide enough contrast with its white text, along with captions being too light gray for white backgrounds! I have re-color schemed the page to the pink theme over the blue theme to provide 4.5+ contrast ratios to all elements and changed the figcaption text to the same grey as the rest of the text.
-    6. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
-    7. Provide easily identifiable feedback: Previosuly, whenever an insert query has an error, the user had no information on what went wrong. It would jsut look like the screen refreshed. Now, a Tooltip will inform the user of the feedback from the db. ADDDDDDDDDDD
+    1. Provide sufficient contrast between foreground and background: Turns out the default button color for pico.css does not provide enough contrast with its white text, along with captions being too light gray for white backgrounds! I have re-color schemed the page to the pink theme over the blue theme to provide 4.5+ contrast ratios to all elements and changed the figcaption text to the same grey as the rest of the text.
+    2. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
+    3. Provide easily identifiable feedback: Previosuly, whenever an insert query has an error, the user had no information on what went wrong. It would jsut look like the screen refreshed. Now, a Tooltip will inform the user of the feedback from the db. ADDDDDDDDDDD
   - Developing: 
-    8. Associate a label with every form control: As mentioned, the login-in form previously did not have any labels, and now it does!
-    9. Include alternative text for images: I added alternative text for every gallery image.
-    10. Identify page language and language changes: I added lang="en" to the top of both the main page and the login page.
-    11. Help users avoid and correct mistakes: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong, so they wont be able to correct it. I have not added tooltips with suggestions whenever login fails. ADDDDDDDDDDDDDDDDDDDDDD aria-invalid="true" 
-    12. Reflect the reading order in the code order: I reorganized my code to have the logical structure of setup -> login -> get -> create -> delete
+    1. Associate a label with every form control: As mentioned, the login-in form previously did not have any labels, and now it does!
+    2. Include alternative text for images: I added alternative text for every gallery image.
+    3. Identify page language and language changes: I added lang="en" to the top of both the main page and the login page.
+    4. Help users avoid and correct mistakes: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong, so they wont be able to correct it. I have not added tooltips with suggestions whenever login fails. ADDDDDDDDDDDDDDDDDDDDDD aria-invalid="true" 
+    5. Reflect the reading order in the code order: I reorganized my code to have the logical structure of setup -> login -> get -> create -> delete
     

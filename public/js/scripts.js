@@ -1,4 +1,34 @@
+// Setup
+const refreshGalleryContents = function(json) {
+  let galleryContents = '';
+  for(let i = 0; i < json.length; i++){
+    galleryContents += '<li id="'
+      +json[i]._id+'"> <figure> <img class="petTile" src="'
+      +json[i].link+'" alt="Picture of a '
+      + ((json[i].type === "Other") ? "Pet" : json[i].type) + ' named '
+      +json[i].name+'"> <figcaption name="'
+      +json[i].name+'">'
+      +json[i].name+' says '
+      +json[i].call+'</figcaption> </figure> <button value="'
+      +json[i]._id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
+      +json[i]._id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
+  }
+  const gallery = document.querySelector( '#gallery' )
+  gallery.innerHTML = galleryContents;
+}
 
+window.onload = function() {
+  const button = document.querySelector( '#createPet' )
+  button.onclick = submit
+  getAllPets()
+}
+
+
+window.onpageshow = function () {
+  getAllPets()
+}
+
+// Get
 const getAllPets = function( e ) {
   fetch('/get')
   .then( function( response ) {
@@ -10,6 +40,8 @@ const getAllPets = function( e ) {
 
   return false
 }
+
+// Create
 
 const submit = function( e ) {
   // prevent default form action from being carried out
@@ -76,6 +108,8 @@ const confirmEdits = function(clickedId) {
   
 }
 
+//Delete 
+
 const deleteEntry = function (clickedId) {
   let body = JSON.stringify({"id": clickedId});
   console.log(body)
@@ -92,33 +126,4 @@ const deleteEntry = function (clickedId) {
   .then( function(json) {
     refreshGalleryContents(json)
   })
-}
-
-const refreshGalleryContents = function(json) {
-  let galleryContents = '';
-  for(let i = 0; i < json.length; i++){
-    galleryContents += '<li id="'
-      +json[i]._id+'"> <figure> <img class="petTile" src="'
-      +json[i].link+'" alt="Picture of a '
-      + ((json[i].type === "Other") ? "Pet" : json[i].type) + ' named '
-      +json[i].name+'"> <figcaption name="'
-      +json[i].name+'">'
-      +json[i].name+' says '
-      +json[i].call+'</figcaption> </figure> <button value="'
-      +json[i]._id+'" onclick="deleteEntry(this.value)">Delete</button> <button value="'
-      +json[i]._id+'" onclick="enterEditMode(this.value)">Edit</button></li>';
-  }
-  const gallery = document.querySelector( '#gallery' )
-  gallery.innerHTML = galleryContents;
-}
-
-window.onload = function() {
-  const button = document.querySelector( '#createPet' )
-  button.onclick = submit
-  getAllPets()
-}
-
-
-window.onpageshow = function () {
-  getAllPets()
 }
