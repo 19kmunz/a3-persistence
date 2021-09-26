@@ -34,6 +34,7 @@ I used the pico.css framework. I liked it because it was easy to install and has
   - Writing:
     1. Provide Informative and Unique Page Titles: I added the title 'Login | Pet Gallery | CS4241 A3' to the login page and 'Pet Gallery | CS4241 A3' to the main page. I could have added another title qualifier to the main page, but I believe it would just be repetitive as that pages purpose is described with "Pet Gallery"
     2. Write meaningful text alternatives for images: I added an alttext to all the images in the pet gallery: "Picture of a TYPE named NAME." I also added a ternary operator inline check to change this alternative text to read "Picture of a Pet named NAME" if the pet species is "Other" to make this text easier to understand.
+    3. Provide Clear Instructions
     3. Keep Content Clear and Concise: I added clarification to the sign-in page. Now it reads:
   
       > You will be redirected to Pet Gallery once you <br>
@@ -50,3 +51,7 @@ I used the pico.css framework. I liked it because it was easy to install and has
     5. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
     6. Provide easily identifiable feedback: Previously, on failed login, the user will simply be redirected to the login page. This is not clear to what the user did wrong ADD aria-invalid="true"
   - Developing: 
+    7. Associate a label with every form control: As mentioned, the login-in form previously did not have any labels, and now it does!
+    8. Include alternative text for images: I added alternative text for every gallery image.
+    9. Reflect the reading order in the code order: I reorganized my code to have the logical structure of setup -> login -> get -> create -> delete
+    
