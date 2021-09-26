@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://a3-19kmunz.glitch.me/public/sitemap.xml

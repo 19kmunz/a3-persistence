@@ -145,6 +145,8 @@ const redirectAuthedUser = function(req, res, id) {
 app.use(function(req, res, next) {
   if (req.session.login == true || req.originalUrl === '/login.html' || req.originalUrl === '/loginFailed.html' || req.originalUrl === '/creationFailed.html' || req.originalUrl.includes('.css')) {
     next();
+  } else if (req.originalUrl === '/public/sitemap.xml' || req.originalUrl === '/robots.txt' || req.originalUrl === '/public/robots.txt') {
+    res.sendFile(__dirname + req.originalUrl);
   } else {
     res.sendFile(__dirname + "/public/login.html");
   }
