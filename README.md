@@ -52,7 +52,7 @@ I used the pico.css framework. I liked it because it was easy to install and has
   - Designing:
     1. Provide sufficient contrast between foreground and background: Turns out the default button color for pico.css does not provide enough contrast with its white text, along with captions being too light gray for white backgrounds! I have re-color schemed the page to the pink theme over the blue theme to provide 4.5+ contrast ratios to all elements and changed the figcaption text to the same grey as the rest of the text.
     2. Ensure that form elements include clearly associated labels: Previously, I did not have labels associated with the username and password field of the sign-in page. This has been fixed! 
-    3. Provide easily identifiable feedback: Previosuly, whenever an insert query has an error, the user had no information on what went wrong. It would jsut look like the screen refreshed. Now, a Tooltip will inform the user of the feedback from the db. ADDDDDDDDDDD
+    3. Provide easily identifiable feedback: Previosuly, whenever an account creation query has an error, the user had no information on what went wrong. It would jsut look like the screen refreshed. Now, a paragraph at below the submission will notify the user of an error and the instructions to perhaps try agian later. 
   - Developing: 
     1. Associate a label with every form control: As mentioned, the login-in form previously did not have any labels, and now it does!
     2. Include alternative text for images: I added alternative text for every gallery image.
